@@ -8,4 +8,9 @@ const router = Router();
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 
+const bookhandler = require("./bookhandler/bookhandler");
+const stockhandler = require("./stockhandler/stockhandler");
+
+router.use("/book", bookhandler);
+router.use("/stock", stockhandler);
 module.exports = router;
