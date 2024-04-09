@@ -4,34 +4,25 @@ const { DataTypes } = require("sequelize");
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define(
-    "user",
+    "review",
     {
-      user_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
+      review_id: {
+        type: DataTypes.STRING,
+        defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
       },
-      user_name: {
+
+      rating: {
+        type: DataTypes.FLOAT,
+        allowNull: false,
+      },
+
+      comment: {
         type: DataTypes.STRING,
         allowNull: false,
       },
 
-      email_address: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-
-      phone_number: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-
-      password: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-
-      user_type: {
+      review_date: {
         type: DataTypes.STRING,
         allowNull: false,
       },

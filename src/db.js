@@ -37,12 +37,78 @@ let capsEntries = entries.map((entry) => [
 ]);
 sequelize.models = Object.fromEntries(capsEntries);
 
-// En sequelize.models están todos los modelos importados como propiedades
-// Para relacionarlos hacemos un destructuring
-// const { Videogame, Genre } = sequelize.models;
+//destructuring of all models
+const { Book, Order, Order_item, Payment, Review, Stock, User } =
+  sequelize.models;
 
-// Aca vendrian las relaciones
-// Product.hasMany(Reviews);
+// Declaring Relationships
+
+// One-to-many relationship (both ends) between User and Order.
+User.hasMany(Order, {
+  foreignKey: "user_id",
+});
+
+Order.belongsTo(User, {
+  foreignKey: "user_id",
+});
+
+// One-to-many relationship (both ends) between Order and Order_Item.
+Order.hasMany(Order_item, {
+  foreignKey: "order_id",
+});
+
+Order_item.belongsTo(Order, {
+  foreignKey: "order_id",
+});
+
+// One-to-one relationship (both ends) between Order and Payment.
+Order.hasOne(Payment, {
+  foreignKey: "order_id",
+});
+
+Payment.belongsTo(Order, {
+  foreignKey: "order_id",
+});
+
+// One-to-many relationship (both ends) between Book and Order_item.
+Book.hasMany(Order_item, {
+  foreignKey: "ISBN",
+});
+
+Order_item.belongsTo(Book, {
+  foreignKey: "ISBN",
+});
+
+// One-to-many relationship (both ends) between User and Review.
+User.hasMany(Review, {
+  foreignKey: "user_id",
+});
+
+Review.belongsTo(User, {
+  foreignKey: "user_id",
+});
+
+// One-to-many relationship (both ends) between Book and Review.
+Book.hasMany(Review, {
+  foreignKey: "ISBN",
+});
+
+Review.belongsTo(Book, {
+  foreignKey: "ISBN",
+});
+
+// One-to-one relationship (both ends) between Book and Stock.
+Book.hasOne(Stock, {
+  foreignKey: "ISBN",
+});
+
+Stock.belongsTo(Book, {
+  foreignKey: "ISBN",
+});
+
+//* NOTE: These associations enable bidirectional querying between associated tables.
+
+//TODO: Revisar y reestructurar modelos en base a los tipos de datos que vamos a guardar
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

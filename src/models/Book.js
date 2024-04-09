@@ -6,35 +6,37 @@ module.exports = (sequelize) => {
   sequelize.define(
     "book",
     {
-      id: {
+      ISBN: {
         type: DataTypes.STRING,
-
-        defaultValue: DataTypes.UUIDV4,
+        allowNull: false,
         primaryKey: true,
       },
-      name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      description: {
-        type: DataTypes.TEXT,
-        allowNull: false,
-      },
-      platforms: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
-        allowNull: false,
-      },
-      background_image: {
+      book_title: {
         type: DataTypes.STRING,
         allowNull: false,
       },
 
-      released: {
-        type: DataTypes.DATEONLY,
+      author: {
+        type: DataTypes.STRING,
         allowNull: false,
       },
 
-      rating: {
+      book_cover_url: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+
+      genre: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+
+      book_description: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+
+      price: {
         type: DataTypes.FLOAT,
         allowNull: false,
       },
