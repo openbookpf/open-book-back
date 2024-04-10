@@ -1,13 +1,23 @@
-const { Stock, Book } = require("../../../db");
+// const { stock, book } = require("../../../db");
+
+// const createastock = async (newstock) => {
+//   const { quantity } = newstock;
+//   const stocke = await stock.create({ quantity });
+//   return stocke;
+// };
+
+// module.exports = createastock;
+
+const { stock, book } = require("../../../db");
 
 const createastock = async (newstock) => {
   const { quantity, ISBN } = newstock;
-  const book = await Book.findByPk(ISBN);
-  if (!book) {
-    throw Error("book not found");
+  const Book = await book.findByPk(ISBN);
+  if (!Book) {
+    throw new Error("book not found");
   }
-  const stock = await Stock.create({ quantity, ISBN });
-  return stock;
+  const Stock = await stock.create({ quantity, ISBN });
+  return Stock;
 };
 
 module.exports = createastock;
