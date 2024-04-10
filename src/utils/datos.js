@@ -75,5 +75,69 @@ module.exports = [
     book_description:
       "Tras una travesía llena de aventuras y peligros, el marinero Robinson Crusoe naufraga en una isla desierta donde le esperan más de dos décadas de absoluta soledad.",
     price: 30.0,
+    ISBN: "9780545139700",
+    book_title: "Harry Potter and the Deathly Hallows (Book 7)",
+    author: "J. K. Rowling",
+    book_cover_url:
+      "https://ellector.com.py/product_photos/24b89be1/c6bbdfe21440918be26f9b7f15a135c4.jpg",
+    genre: "Fantasy",
+    book_description:
+      "It's no longer safe for Harry at Hogwarts, so he and his best friends, Ron and Hermione, are on the run. Professor Dumbledore has given them clues about what they need to do to defeat the dark wizard, Lord Voldemort, once and for all, but it's up to them to figure out what these hints and suggestions really mean.",
+    price: 16.99,
+  },
+  {
+    ISBN: "9780439064873",
+    book_title: "Harry Potter And The Chamber Of Secrets (Book 2)",
+    author: "J. K. Rowling",
+    book_cover_url:
+      "https://ellector.com.py/product_photos/24b89be1/b873fa86ec27ba3556e692be1a7cb9de.jpg",
+    genre: "Fantasy",
+    book_description:
+      "The Dursleys were so mean and hideous that summer that all Harry Potter wanted was to get back to the Hogwarts School for Witchcraft and Wizardry. But just as he's packing his bags, Harry receives a warning from a strange, impish creature named Dobby who says that if Harry Potter returns to Hogwarts, disaster will strike.And strike it does.",
+    price: 16.99,
+  },
+  {
+    ISBN: "9780590353427",
+    book_title: "Harry Potter And The Sorcerer´s Stone (Book 1)",
+    author: "J. K. Rowling",
+    book_cover_url:
+      "https://ellector.com.py/product_photos/24b89be1/68ee3669135dccf2358b8bcb72c803b8.jpg",
+    genre: "Fantasy",
+    book_description:
+      "Harry Potter has never been the star of a Quidditch team, scoring points while riding a broom far above the ground. He knows no spells, has never helped to hatch a dragon, and has never worn a cloak of invisibility. All he knows is a miserable life with the Dursleys, his horrible aunt and uncle, and their abominable son, Dudley - a great big swollen spoiled bully. Harry's room is a tiny closet at the foot of the stairs, and he hasn't had a birthday party in eleven years",
+    price: 16.99,
+  },
+  {
+    ISBN: "9780439358071",
+    book_title: "Harry Potter And The Order Of The Phoenix (Book 5)",
+    author: "J. K. Rowling",
+    book_cover_url:
+      "https://ellector.com.py/product_photos/24b89be1/c246726a594105e3c66cfdf68325fc76.jpg",
+    genre: "Fantasy",
+    book_description:
+      "In his fifth year at Hogwart's, Harry faces challenges at every turn, from the dark threat of He-Who-Must-Not-Be- Named and the unreliability of the government of the magical world to the rise of Ron Weasley as the keeper of the Gryffindor Quidditch Team. Along the way he learns about the strength of his friends, the fierceness of his enemies, and the meaning of sacrifice",
+    price: 16.99,
+  },
+  {
+    ISBN: "9780439785969",
+    book_title: "Harry Potter And The Half Blood Prince (Book 6)",
+    author: "J. K. Rowling",
+    book_cover_url:
+      "https://ellector.com.py/product_photos/24b89be1/35ceabaa28765a3d977fcfbab03493c4.jpg",
+    genre: "Fantasy",
+    book_description:
+      "In a brief statement on Friday night, Minister for Magic Cornelius Fudge confirmed that He Who Must Not Be Named has returned to this country and is once more active. It is with great regret that I must confirm that the wizard styling himself Lord - well, you know who I mean - is alive and among us again, said Fudge.' These dramatic words appeared in the final pages of Harry Potter and the Order of the Phoenix. In the midst of this battle of good and evil, Harry Potter and the Half-Blood Prince takes up the story of Harry Potter's sixth year at Hogwarts School of Witchcraft and Wizardry, with Voldemort's power and followers increasing day by day",
+    price: 16.99,
+  },
+  {
+    ISBN: "9780439136365",
+    book_title: "Harry Potter And The Prisoner Of Azkaban (Book 3)",
+    author: "J. K. Rowling",
+    book_cover_url:
+      "https://ellector.com.py/product_photos/24b89be1/8bd2a103ee5b0ac751eb1053ef3c7014.jpg",
+    genre: "Fantasy",
+    book_description:
+      "An exciting caldron of danger and intrigue awaits your child in this installment of J. K. Rowling's now-classic series. Harry is only entering his third year at the Hogwarts School, but his magical powers will soon be put to the test. A notorious prisoner has escaped -- and all signs indicate he's headed for Hogwarts to settle an old score. Will Harry be up to the challenge?",
+    price: 16.99,
   },
 ];
