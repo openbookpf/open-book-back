@@ -1,10 +1,13 @@
 require("dotenv").config();
 const { Sequelize } = require("sequelize");
-const fs = require("fs");
-const path = require("path");
 const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
-
-console.log(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/openbook`);
+const userModel = require("./models/User");
+const bookModel = require("./models/Book");
+const orderModel = require("./models/Order");
+const orderItemModel = require("./models/OrderItem");
+const paymentModel = require("./models/Payment");
+const stockModel = require("./models/Stock");
+const reviewModel = require("./models/review");
 
 const sequelize = new Sequelize(
   `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/openbook`,
@@ -13,96 +16,78 @@ const sequelize = new Sequelize(
     native: false, // lets Sequelize know we can use pg-native for ~30% more speed
   }
 );
-const basename = path.basename(__filename);
 
-const modelDefiners = [];
+userModel(sequelize);
+bookModel(sequelize);
+orderModel(sequelize);
+orderItemModel(sequelize);
+paymentModel(sequelize);
+stockModel(sequelize);
+reviewModel(sequelize);
 
-// Leemos todos los archivos de la carpeta Models, los requerimos y agregamos al arreglo modelDefiners
-fs.readdirSync(path.join(__dirname, "/models"))
-  .filter(
-    (file) =>
-      file.indexOf(".") !== 0 && file !== basename && file.slice(-3) === ".js"
-  )
-  .forEach((file) => {
-    modelDefiners.push(require(path.join(__dirname, "/models", file)));
-  });
-
-// Injectamos la conexion (sequelize) a todos los modelos
-modelDefiners.forEach((model) => model(sequelize));
-// Capitalizamos los nombres de los modelos ie: product => Product
-let entries = Object.entries(sequelize.models);
-let capsEntries = entries.map((entry) => [
-  entry[0][0].toUpperCase() + entry[0].slice(1),
-  entry[1],
-]);
-sequelize.models = Object.fromEntries(capsEntries);
-
-//destructuring of all models
-const { Book, Order, Order_item, Payment, Review, Stock, User } =
+const { book, order, order_item, payment, review, stock, user } =
   sequelize.models;
 
-// Declaring Relationships
-
 // One-to-many relationship (both ends) between User and Order.
-User.hasMany(Order, {
+user.hasMany(order, {
   foreignKey: "user_id",
 });
 
-Order.belongsTo(User, {
+order.belongsTo(user, {
   foreignKey: "user_id",
 });
 
 // One-to-many relationship (both ends) between Order and Order_Item.
-Order.hasMany(Order_item, {
+order.hasMany(order_item, {
   foreignKey: "order_id",
 });
 
-Order_item.belongsTo(Order, {
+order_item.belongsTo(order, {
   foreignKey: "order_id",
 });
 
 // One-to-one relationship (both ends) between Order and Payment.
-Order.hasOne(Payment, {
+order.hasOne(payment, {
   foreignKey: "order_id",
 });
 
-Payment.belongsTo(Order, {
+payment.belongsTo(order, {
   foreignKey: "order_id",
 });
 
 // One-to-many relationship (both ends) between Book and Order_item.
-Book.hasMany(Order_item, {
+book.hasMany(order_item, {
   foreignKey: "ISBN",
 });
 
-Order_item.belongsTo(Book, {
+order_item.belongsTo(book, {
   foreignKey: "ISBN",
 });
 
 // One-to-many relationship (both ends) between User and Review.
-User.hasMany(Review, {
+user.hasMany(review, {
   foreignKey: "user_id",
 });
 
-Review.belongsTo(User, {
+review.belongsTo(user, {
   foreignKey: "user_id",
 });
 
 // One-to-many relationship (both ends) between Book and Review.
-Book.hasMany(Review, {
+book.hasMany(review, {
   foreignKey: "ISBN",
 });
 
-Review.belongsTo(Book, {
+review.belongsTo(book, {
   foreignKey: "ISBN",
 });
 
 // One-to-one relationship (both ends) between Book and Stock.
-Book.hasOne(Stock, {
+book.hasOne(stock, {
   foreignKey: "ISBN",
 });
 
-Stock.belongsTo(Book, {
+stock.belongsTo(book, {
   foreignKey: "ISBN",
 });
 
@@ -114,3 +99,4 @@ module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
   conn: sequelize, // para importart la conexión { conn } = require('./db.js');
 };
+

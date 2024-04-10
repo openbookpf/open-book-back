@@ -1,16 +1,15 @@
-const { Book } = require("../../../db");
+const { book } = require("../../../db");
 
-const createabook = async (newobject) => {
-  const {
-    ISBN,
-    book_title,
-    author,
-    book_cover_url,
-    genre,
-    book_description,
-    price,
-  } = newobject;
-  const newbook = await Book.create({
+const createabook = async ({
+  ISBN,
+  book_title,
+  author,
+  book_cover_url,
+  genre,
+  book_description,
+  price,
+}) => {
+  const newbook = await book.create({
     ISBN,
     book_title,
     author,
@@ -23,4 +22,3 @@ const createabook = async (newobject) => {
 };
 
 module.exports = createabook;
-//cccdeedtff
