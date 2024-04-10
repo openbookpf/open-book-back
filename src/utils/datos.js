@@ -75,6 +75,8 @@ module.exports = [
     book_description:
       "Tras una travesía llena de aventuras y peligros, el marinero Robinson Crusoe naufraga en una isla desierta donde le esperan más de dos décadas de absoluta soledad.",
     price: 30.0,
+  },
+  {
     ISBN: "9780545139700",
     book_title: "Harry Potter and the Deathly Hallows (Book 7)",
     author: "J. K. Rowling",
