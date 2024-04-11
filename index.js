@@ -1,4 +1,5 @@
-const PORT = 3001;
+require("dotenv").config();
+const port = process.env.PORT || 3001;
 const server = require("./src/app.js");
 const { conn } = require("./src/db.js");
 const montarBaseDeDatos = require("./src/utils/montarBaseDeDatos");
@@ -6,8 +7,8 @@ const montarBaseDeDatos = require("./src/utils/montarBaseDeDatos");
 conn
   .sync({ force: true })
   .then(() => {
-    server.listen(PORT, () => {
-      console.log(`Server listening on port ${PORT}`);
+    server.listen(port, () => {
+      console.log(`Server listening on port ${port}`);
       montarBaseDeDatos();
     });
   })
