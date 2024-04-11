@@ -8,9 +8,9 @@
 
 // module.exports = createastock;
 
-const { stock, book } = require("../../../db");
+const { stock, book } = require("../../db");
 
-const createaStock = async (newstock) => {
+const createStock = async (newstock) => {
   const { quantity, ISBN } = newstock;
   const Book = await book.findByPk(ISBN);
   if (!Book) {
@@ -20,4 +20,4 @@ const createaStock = async (newstock) => {
   return Stock;
 };
 
-module.exports = createaStock;
+module.exports = createStock;

@@ -1,4 +1,4 @@
-const { stock, book } = require("../../../db");
+const { stock, book } = require("../../db");
 
 const getAllStocks = async () => {
   //   const allstock = await stock.findAll({

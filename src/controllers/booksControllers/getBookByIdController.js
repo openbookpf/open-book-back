@@ -1,4 +1,4 @@
-const { book, stock } = require("../../../db");
+const { book, stock } = require("../../db");
 // const datasos = require("../../../utils/datos");
 
 const getBookByIdController = async (id) => {
