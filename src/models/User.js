@@ -7,8 +7,8 @@ module.exports = (sequelize) => {
     "user",
     {
       user_id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
+        type: DataTypes.STRING,
+        defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
       },
       user_name: {
@@ -33,7 +33,13 @@ module.exports = (sequelize) => {
 
       user_type: {
         type: DataTypes.STRING,
-        allowNull: false,
+        defaultValue: "store_customer",
+        allowNull: true,
+      },
+      user_status: {
+        type: DataTypes.STRING,
+        defaultValue: "active",
+        allowNull: true,
       },
     },
     { timestamps: false }
