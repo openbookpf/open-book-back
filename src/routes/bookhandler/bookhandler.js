@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const bookhandler = Router();
-const createabook = require("./controllers/createabook");
+const createabook = require("./controllers/createaBook");
 const getBookController = require("./controllers/getBookController");
 const getBookByIdController = require("./controllers/getBookByIdController");
 
