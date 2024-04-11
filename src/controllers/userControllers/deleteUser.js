@@ -1,4 +1,4 @@
-const { user } = require("../../../db");
+const { user } = require("../../db");
 
 const deleteUser = async (id) => {
   //Validate data provided on the params

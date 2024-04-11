@@ -1,9 +1,9 @@
 const { Router } = require("express");
 
 const userHandler = Router();
-const createUser = require("./controllers/createUser");
-const getAllUsers = require("./controllers/getAllUsers");
-const deleteUser = require("./controllers/deleteUser");
+const createUser = require("../controllers/userControllers/createUser");
+const getAllUsers = require("../controllers/userControllers/getAllUsers");
+const deleteUser = require("../controllers/userControllers/deleteUser");
 
 //Create an user in the database
 userHandler.post("/", async (req, res) => {
@@ -32,7 +32,6 @@ userHandler.get("/", async (req, res) => {
 });
 
 //Delete an user from the database
-
 userHandler.delete("/:id", async (req, res) => {
   const { id } = req.params;
 

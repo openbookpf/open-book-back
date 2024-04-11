@@ -12,5 +12,3 @@ conn
     });
   })
   .catch((error) => console.error(error));
-
-//nuevo branch

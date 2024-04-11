@@ -7,7 +7,8 @@ const orderModel = require("./models/Order");
 const orderItemModel = require("./models/OrderItem");
 const paymentModel = require("./models/Payment");
 const stockModel = require("./models/Stock");
-const reviewModel = require("./models/review");
+const reviewModel = require("./models/Review");
+// const genreModel = require("./models/Genre");
 
 const sequelize = new Sequelize(
   `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/openbook`,
@@ -24,6 +25,7 @@ orderItemModel(sequelize);
 paymentModel(sequelize);
 stockModel(sequelize);
 reviewModel(sequelize);
+// genreModel(sequelize);
 
 const { book, order, order_item, payment, review, stock, user } =
   sequelize.models;
@@ -36,6 +38,15 @@ user.hasMany(order, {
 order.belongsTo(user, {
   foreignKey: "user_id",
 });
+
+// One-to-many relationship (both ends) between Book and Genre.
+// book.hasMany(genre, {
+//   foreignKey: "ISBN",
+// });
+
+// genre.belongsTo(book, {
+//   foreignKey: "ISBN",
+// });
 
 // One-to-many relationship (both ends) between Order and Order_Item.
 order.hasMany(order_item, {
@@ -99,4 +110,3 @@ module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
   conn: sequelize, // para importart la conexión { conn } = require('./db.js');
 };
-
