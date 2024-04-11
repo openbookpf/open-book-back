@@ -1,20 +1,20 @@
 const { Router } = require("express");
-const bookhandler = Router();
-const createabook = require("./controllers/createaBook");
-const getBookController = require("./controllers/getBookController");
-const getBookByIdController = require("./controllers/getBookByIdController");
+const bookRoutes = Router();
+const createBook = require("../controllers/booksControllers/createBook");
+const getBookController = require("../controllers/booksControllers/getBookController");
+const getBookByIdController = require("../controllers/booksControllers/getBookByIdController");
 
-bookhandler.post("/", async (req, res) => {
+bookRoutes.post("/", async (req, res) => {
   try {
     const libro = req.body;
-    const newBook = await createabook(libro);
+    const newBook = await createBook(libro);
     res.status(200).json(newBook);
   } catch (error) {
     res.status(401).json({ error: error.message });
   }
 });
 
-bookhandler.get("/", async (req, res) => {
+bookRoutes.get("/", async (req, res) => {
   try {
     const allBooks = await getBookController();
     res.status(200).json(allBooks);
@@ -23,7 +23,7 @@ bookhandler.get("/", async (req, res) => {
   }
 });
 
-bookhandler.get("/:id", async (req, res) => {
+bookRoutes.get("/:id", async (req, res) => {
   const {id} = req.query;
   try {
     const book = await getBookByIdController(id);
@@ -33,4 +33,4 @@ bookhandler.get("/:id", async (req, res) => {
   }
 });
 
-module.exports = bookhandler;
+module.exports = bookRoutes;
