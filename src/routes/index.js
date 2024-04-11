@@ -2,12 +2,12 @@
 const { Router } = require("express");
 const router = Router();
 // Importar todos los routers;
-const bookhandler = require("./bookhandler/bookhandler");
-const stockhandler = require("./stockhandler/stockhandler");
+const bookHandler = require("./bookHandler/bookHandler");
+const stockHandler = require("./stockHandler/stockHandler");
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
-router.use("/book", bookhandler);
-router.use("/stock", stockhandler);
+router.use("/book", bookHandler);
+router.use("/stock", stockHandler);
 
 module.exports = router;
