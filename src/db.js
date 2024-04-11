@@ -1,6 +1,6 @@
 require("dotenv").config();
 const { Sequelize } = require("sequelize");
-const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
+const { DB_USER, DB_PASSWORD, DB_HOST, DB_DEPLOY } = process.env;
 const userModel = require("./models/User");
 const bookModel = require("./models/Book");
 const orderModel = require("./models/Order");
@@ -9,13 +9,25 @@ const paymentModel = require("./models/Payment");
 const stockModel = require("./models/Stock");
 const reviewModel = require("./models/Review");
 
-const sequelize = new Sequelize(
-  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/openbook`,
-  {
-    logging: false, // set to console.log to see the raw SQL queries
-    native: false, // lets Sequelize know we can use pg-native for ~30% more speed
-  }
-);
+// const sequelize = new Sequelize(
+//   `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/openbook`,
+//   {
+//     logging: false,
+//     native: false,
+//   }
+// );
+
+const sequelize = new Sequelize(DB_DEPLOY, {
+  dialect: "postgres",
+  logging: false,
+  native: false,
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false, // Usar false si no tienes un certificado de CA válido
+    },
+  },
+});
 
 userModel(sequelize);
 bookModel(sequelize);
@@ -99,4 +111,3 @@ module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
   conn: sequelize, // para importart la conexión { conn } = require('./db.js');
 };
-
