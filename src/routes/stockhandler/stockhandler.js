@@ -2,6 +2,7 @@ const { Router } = require("express");
 const stockHandler = Router();
 const createaStock = require("./controllers/createaStock");
 const getAllStocks = require("./controllers/getAllStocks");
+
 stockHandler.post("/", async (req, res) => {
   try {
     const { quantity, ISBN } = req.body;

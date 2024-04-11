@@ -7,7 +7,7 @@ const orderModel = require("./models/Order");
 const orderItemModel = require("./models/OrderItem");
 const paymentModel = require("./models/Payment");
 const stockModel = require("./models/Stock");
-const reviewModel = require("./models/Review");
+const reviewModel = require("./models/review");
 
 const sequelize = new Sequelize(
   `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/openbook`,

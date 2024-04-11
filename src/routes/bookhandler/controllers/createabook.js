@@ -1,6 +1,6 @@
 const { book } = require("../../../db");
 
-const createabook = async ({
+const createaBook = async ({
   ISBN,
   book_title,
   author,
@@ -21,4 +21,4 @@ const createabook = async ({
   return newbook;
 };
 
-module.exports = createabook;
+module.exports = createaBook;

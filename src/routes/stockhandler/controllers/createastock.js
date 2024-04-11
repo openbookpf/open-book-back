@@ -10,7 +10,7 @@
 
 const { stock, book } = require("../../../db");
 
-const createastock = async (newstock) => {
+const createaStock = async (newstock) => {
   const { quantity, ISBN } = newstock;
   const Book = await book.findByPk(ISBN);
   if (!Book) {
@@ -20,4 +20,4 @@ const createastock = async (newstock) => {
   return Stock;
 };
 
-module.exports = createastock;
+module.exports = createaStock;

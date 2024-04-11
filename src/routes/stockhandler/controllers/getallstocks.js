@@ -1,6 +1,6 @@
 const { stock, book } = require("../../../db");
 
-const getallstocks = async () => {
+const getAllStocks = async () => {
   //   const allstock = await stock.findAll({
   //     include: {
   //       model: book,
@@ -21,4 +21,4 @@ const getallstocks = async () => {
   //   return allstock;
 };
 
-module.exports = getallstocks;
+module.exports = getAllStocks;
