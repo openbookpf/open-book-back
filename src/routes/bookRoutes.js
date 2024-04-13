@@ -1,56 +1,46 @@
 const { Router } = require("express");
 const bookRoutes = Router();
-const createBook = require("../controllers/booksControllers/createBook");
 const getBookController = require("../controllers/booksControllers/getBookController");
 const getBookByIdController = require("../controllers/booksControllers/getBookByIdController");
 const getBookByNameController = require("../controllers/booksControllers/getBookByNameController");
-const filterGenre = require("../controllers/booksControllers/filterByGenre");
-const filterAuthor = require("../controllers/booksControllers/filterByAuthor");
-const orderByPrice = require("../controllers/booksControllers/orderByPrice");
-const deleteBook = require("../controllers/booksControllers/deleteBook");
-const modifyBook = require("../controllers/booksControllers/modifyBooks");
-bookRoutes.post("/", async (req, res) => {
+const filterByGenre = require("../controllers/booksControllers/filterByGenre");
+const filterByAuthor = require("../controllers/booksControllers/filterByAuthor");
+const orderBooksByPrice = require("../controllers/booksControllers/orderBooksByPrice");
+// const deleteBook = require("../controllers/booksControllers/deleteBook");
+const modifyBook = require("../controllers/booksControllers/modifyBookController");
+const uploadImage = require("../controllers/booksControllers/uploadImage");
+const createBookFrontEnd = require("../controllers/booksControllers/createBookFrontEnd");
+
+//* GET BOOK BY ID
+bookRoutes.get("/book_id/:id", async (req, res) => {
+  const { id } = req.params;
   try {
-    const libro = req.body;
-    const newBook = await createBook(libro);
-    res.status(200).json(newBook);
+    const foundBook = await getBookByIdController(id);
+    res.status(200).json(foundBook);
   } catch (error) {
     res.status(401).json({ error: error.message });
   }
 });
 
-bookRoutes.delete("/deletebook/:ISBN", async (req, res) => {
-  const { ISBN } = req.params;
-  // console.log(ISBN);
-  try {
-    const borrar = await deleteBook(ISBN);
-    if (borrar) {
-      res.send(`Libro con ISBN ${ISBN} ha sido eliminado correctamente.`);
-    } else {
-      res.status(404).send(`No se encontró ningún libro con ISBN ${ISBN}.`);
-    }
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
+//* FILTER BY GENRE
 bookRoutes.get("/filtrargenero", async (req, res) => {
   const { genre } = req.query;
   try {
-    const filterbygenre = genre
-      ? await filterGenre(genre)
+    const filteredBooks = genre
+      ? await filterByGenre(genre)
       : await getBookController();
-    res.status(200).json(filterbygenre);
+    res.status(200).json(filteredBooks);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
+//* FILTER BY AUTHOR'S NAME
 bookRoutes.get("/filtrarautor", async (req, res) => {
   const { author } = req.query;
   try {
     const bookbyautores = author
-      ? await filterAuthor(author)
+      ? await filterByAuthor(author)
       : await getBookController();
     res.status(200).json(bookbyautores);
   } catch (error) {
@@ -58,30 +48,78 @@ bookRoutes.get("/filtrarautor", async (req, res) => {
   }
 });
 
+//* ORDER BY PRICE
 bookRoutes.get("/orderbyprice", async (req, res) => {
   try {
-    const nuevoorden = await orderByPrice();
+    const nuevoorden = await orderBooksByPrice();
     res.status(200).json(nuevoorden);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
+//* MODIFY BOOK DATA
 bookRoutes.put("/modifybook", async (req, res) => {
   const { ISBN } = req.query;
-  const newbody = req.body;
+  const newData = req.body;
   try {
-    const settingbook = await modifyBook(ISBN, newbody);
+    const settingbook = await modifyBook(ISBN, newData);
     if (settingbook) {
-      res.send(`this book with ISBN = ${ISBN} has recently change`);
+      res.status(200).send({
+        message: `the data for the book with ISBN = ${ISBN} has been modified`,
+      });
     } else {
-      res.send("not found any book");
+      res.send.status(404).send("Book not found");
     }
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
+//* CREATE A BOOK
+bookRoutes.post("/", uploadImage, async (req, res) => {
+  try {
+    const { ISBN, book_title, author, genre, book_description, price } =
+      req.body;
+
+    console.log(req.file.path);
+    const bookCoverUrl = req.file.path;
+    const newBook = await createBookFrontEnd({
+      ISBN,
+      book_title,
+      author,
+      genre,
+      book_description,
+      price,
+      bookCoverUrl,
+    });
+    res.status(200).json(newBook);
+  } catch (error) {
+    res.status(401).json({ error: error.message });
+  }
+});
+
+//? DEBERIAMOS MANTENER ESTA RUTA DE IGUAL FORMA? Se puede utilizar la de modify books y ya
+// bookRoutes.delete("/deletebook/:ISBN", async (req, res) => {
+//   const { ISBN } = req.params;
+
+//   try {
+//     const borrar = await deleteBook(ISBN);
+//     if (borrar) {
+//       res.status(200).send({
+//         message: `Libro con ISBN ${ISBN} ha sido eliminado correctamente.`,
+//       });
+//     } else {
+//       res
+//         .status(404)
+//         .send({ message: `No se encontró ningún libro con ISBN ${ISBN}.` });
+//     }
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// });
+
+//* GET ALL BOOKS AND QUERY BOOKS BY NAME
 bookRoutes.get("/", async (req, res) => {
   const { name } = req.query;
   try {
@@ -92,16 +130,6 @@ bookRoutes.get("/", async (req, res) => {
       const allBooks = await getBookController();
       res.status(200).json(allBooks);
     }
-  } catch (error) {
-    res.status(401).json({ error: error.message });
-  }
-});
-
-bookRoutes.get("/:id", async (req, res) => {
-  const { id } = req.query;
-  try {
-    const book = await getBookByIdController(id);
-    res.status(200).json(book);
   } catch (error) {
     res.status(401).json({ error: error.message });
   }

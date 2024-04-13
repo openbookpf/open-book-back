@@ -1,10 +1,10 @@
 const { book } = require("../../db");
 
-const filterbygenre = async (genero) => {
-  const books = await book.findAll({
+const filterByGenre = async (genero) => {
+  const filteredBooks = await book.findAll({
     where: { genre: genero },
   });
-  return books;
+  return filteredBooks;
 };
 
-module.exports = filterbygenre;
+module.exports = filterByGenre;
