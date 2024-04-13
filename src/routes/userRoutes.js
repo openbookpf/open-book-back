@@ -3,7 +3,7 @@ const { Router } = require("express");
 const userHandler = Router();
 const createUser = require("../controllers/userControllers/createUser");
 const getAllUsers = require("../controllers/userControllers/getAllUsers");
-const deleteUser = require("../controllers/userControllers/deleteUser");
+// const deleteUser = require("../controllers/userControllers/deleteUser");
 
 //Create an user in the database
 userHandler.post("/", async (req, res) => {
@@ -32,15 +32,15 @@ userHandler.get("/", async (req, res) => {
 });
 
 //Delete an user from the database
-userHandler.delete("/:id", async (req, res) => {
-  const { id } = req.params;
+// userHandler.delete("/:id", async (req, res) => {
+//   const { id } = req.params;
 
-  try {
-    const deletedUser = await deleteUser(id);
-    res.status(200).json({ user_deleted: deletedUser });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
+//   try {
+//     const deletedUser = await deleteUser(id);
+//     res.status(200).json({ user_deleted: deletedUser });
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// });
 
 module.exports = userHandler;
