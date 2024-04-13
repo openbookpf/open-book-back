@@ -1,5 +1,5 @@
 const datos = require("./datos");
-const createBook = require("../controllers/booksControllers/createBook");
+const createBook = require("./createBook");
 
 module.exports = () => {
   datos.forEach((book) => {

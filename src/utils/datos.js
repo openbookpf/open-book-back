@@ -44,7 +44,7 @@ module.exports = [
     price: 15.99,
   },
   {
-    ISBN: "784-025100508-8",
+    ISBN: "7840251005088",
     book_title: "Fuenteovejuna",
     author: "Lope de Vega",
     book_cover_url:
@@ -78,7 +78,7 @@ module.exports = [
   },
 
   {
-    ISBN: "978-846634243-8",
+    ISBN: "9788466342438",
     book_title: "Fuera de Serie Outliers",
     author: "Malcolm Gladwell",
     book_cover_url:
@@ -89,7 +89,7 @@ module.exports = [
     price: 10.0,
   },
   {
-    ISBN: "978-841839563-5",
+    ISBN: "9788418395635",
     book_title: "Robinson Crusoe Td",
     author: "Defoe, Daniel",
     book_cover_url:
