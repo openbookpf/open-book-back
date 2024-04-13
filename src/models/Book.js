@@ -40,6 +40,9 @@ module.exports = (sequelize) => {
         type: DataTypes.FLOAT,
         allowNull: false,
       },
+      quantity: {
+        type: DataTypes.INTEGER,
+      },
     },
     { timestamps: false }
   );
