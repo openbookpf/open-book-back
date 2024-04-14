@@ -6,7 +6,6 @@ const bookModel = require("./models/Book");
 const orderModel = require("./models/Order");
 const orderItemModel = require("./models/OrderItem");
 const paymentModel = require("./models/Payment");
-// const stockModel = require("./models/Stock");
 const reviewModel = require("./models/Review");
 // const genreModel = require("./models/Genre");
 
@@ -35,7 +34,6 @@ bookModel(sequelize);
 orderModel(sequelize);
 orderItemModel(sequelize);
 paymentModel(sequelize);
-// stockModel(sequelize);
 reviewModel(sequelize);
 // genreModel(sequelize);
 
@@ -104,18 +102,7 @@ review.belongsTo(book, {
   foreignKey: "ISBN",
 });
 
-// One-to-one relationship (both ends) between Book and Stock.
-// book.hasOne(stock, {
-//   foreignKey: "ISBN",
-// });
-
-// stock.belongsTo(book, {
-//   foreignKey: "ISBN",
-// });
-
 //* NOTE: These associations enable bidirectional querying between associated tables.
-
-//TODO: Revisar y reestructurar modelos en base a los tipos de datos que vamos a guardar
 
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');

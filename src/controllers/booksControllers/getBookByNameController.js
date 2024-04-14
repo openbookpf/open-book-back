@@ -1,7 +1,7 @@
 const { Op } = require("sequelize");
 const { book } = require("../../db");
 
-const getBookController = async (name) => {
+const getBookByNameController = async (name) => {
   if (!name) {
     throw new Error("You must provide a book name");
   }
@@ -16,4 +16,4 @@ const getBookController = async (name) => {
   return foundBooks;
 };
 
-module.exports = getBookController;
+module.exports = getBookByNameController;
