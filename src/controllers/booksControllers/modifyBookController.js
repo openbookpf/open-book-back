@@ -1,8 +1,8 @@
 const { book } = require("../../db");
 
-const modifyBook = async (indice, newobject) => {
+const modifyBook = async (id, newobject) => {
   const foundBook = await book.findOne({
-    where: { ISBN: indice },
+    where: { ISBN: id },
   });
   if (foundBook) {
     await foundBook.update(newobject);
