@@ -40,6 +40,15 @@ module.exports = (sequelize) => {
         type: DataTypes.FLOAT,
         allowNull: false,
       },
+      quantity: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+      },
+
+      book_status: {
+        type: DataTypes.ENUM("active", "inactive"),
+        defaultValue: "active",
+      },
     },
     { timestamps: false }
   );

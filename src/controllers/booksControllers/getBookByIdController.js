@@ -1,20 +1,17 @@
-const { book, stock } = require("../../db");
+const { book } = require("../../db");
 // const datasos = require("../../../utils/datos");
 
 const getBookByIdController = async (id) => {
-  const books = await book.findOne(id, {
-    include: {
-      model: stock,
-    },
-  });
-  if (books !== null) {
-    return books;
+  console.log("this is the id", id);
+  if (!id) {
+    throw new Error("You must provide an ID");
   }
-  //   const findbook = datasos.filter((book) => book.ISBN === id);
-
-  //   //   const newobject = book.create(findbook)
-  //   //   newobject.addStock()
-  //   return findbook;
+  const foundBook = await book.findByPk(id);
+  if (foundBook) {
+    return foundBook;
+  } else {
+    throw new Error(`The book with the provided ID: ${id} does not exist`);
+  }
 };
 
 module.exports = getBookByIdController;

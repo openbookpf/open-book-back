@@ -6,41 +6,40 @@ const bookModel = require("./models/Book");
 const orderModel = require("./models/Order");
 const orderItemModel = require("./models/OrderItem");
 const paymentModel = require("./models/Payment");
-const stockModel = require("./models/Stock");
+// const stockModel = require("./models/Stock");
 const reviewModel = require("./models/Review");
 // const genreModel = require("./models/Genre");
 
-// const sequelize = new Sequelize(
-//   `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/openbook`,
-//   {
-//     logging: false,
-//     native: false,
-//   }
-// );
+const sequelize = new Sequelize(
+  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/openbook`,
+  {
+    logging: false,
+    native: false,
+  }
+);
 
-const sequelize = new Sequelize(DB_DEPLOY, {
-  dialect: "postgres",
-  logging: false,
-  native: false,
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false, // Usar false si no tienes un certificado de CA válido
-    },
-  },
-});
+// const sequelize = new Sequelize(DB_DEPLOY, {
+//   dialect: "postgres",
+//   logging: false,
+//   native: false,
+//   dialectOptions: {
+//     ssl: {
+//       require: true,
+//       rejectUnauthorized: false, // Usar false si no tienes un certificado de CA válido
+//     },
+//   },
+// });
 
 userModel(sequelize);
 bookModel(sequelize);
 orderModel(sequelize);
 orderItemModel(sequelize);
 paymentModel(sequelize);
-stockModel(sequelize);
+// stockModel(sequelize);
 reviewModel(sequelize);
 // genreModel(sequelize);
 
-const { book, order, order_item, payment, review, stock, user } =
-  sequelize.models;
+const { book, order, order_item, payment, review, user } = sequelize.models;
 
 // One-to-many relationship (both ends) between User and Order.
 user.hasMany(order, {
@@ -106,13 +105,13 @@ review.belongsTo(book, {
 });
 
 // One-to-one relationship (both ends) between Book and Stock.
-book.hasOne(stock, {
-  foreignKey: "ISBN",
-});
+// book.hasOne(stock, {
+//   foreignKey: "ISBN",
+// });
 
-stock.belongsTo(book, {
-  foreignKey: "ISBN",
-});
+// stock.belongsTo(book, {
+//   foreignKey: "ISBN",
+// });
 
 //* NOTE: These associations enable bidirectional querying between associated tables.
 
