@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const bookRoutes = Router();
+// const { bookSchema, userSchema } = require("../validations/validationBooks");
 const getBookController = require("../controllers/booksControllers/getBookController");
 const getBookByIdController = require("../controllers/booksControllers/getBookByIdController");
 const getBookByNameController = require("../controllers/booksControllers/getBookByNameController");
@@ -62,7 +63,10 @@ bookRoutes.get("/orderbyprice", async (req, res) => {
 bookRoutes.put("/modifybook", async (req, res) => {
   const { ISBN } = req.query;
   const newData = req.body;
+  // const validatebook = bookSchema.validateAsync(newData);
   try {
+    // const validatebook = bookSchema.validateAsync(newData);
+    // console.log(validatebook);
     const settingbook = await modifyBook(ISBN, newData);
     if (settingbook) {
       res.status(200).send({
@@ -72,6 +76,9 @@ bookRoutes.put("/modifybook", async (req, res) => {
       res.send.status(404).send("Book not found");
     }
   } catch (error) {
+    // if (error.isJoi === true) {
+    //   error.status = 422;
+    // }
     res.status(500).json({ error: error.message });
   }
 });

@@ -3,8 +3,6 @@ const port = process.env.PORT || 3001;
 const server = require("./src/app.js");
 const { conn } = require("./src/db.js");
 const montarBaseDeDatos = require("./src/utils/montarBaseDeDatos");
-const filterbygenre = require("./src/controllers/booksControllers/filterbygenre.js");
-const deletebook = require("./src/controllers/booksControllers/deletebook.js");
 
 conn
   .sync({ force: true })
