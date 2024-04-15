@@ -106,3 +106,7 @@ dist
 
 # package-lock.json
 package-lock.json
+
+# Ignorar archivos index.js y db.js en la raíz y en el directorio src
+index.js
+src/db.js
