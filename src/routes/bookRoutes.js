@@ -13,6 +13,8 @@ const orderBooksByPrice = require("../controllers/booksControllers/orderBooksByP
 const modifyBook = require("../controllers/booksControllers/modifyBookController");
 const uploadImage = require("../controllers/booksControllers/uploadImage");
 const createBookFrontEnd = require("../controllers/booksControllers/createBookFrontEnd");
+const getAllFilters = require("../controllers/booksControllers/getAllFilter");
+const combiningFilter = require("../controllers/booksControllers/combiningFilter");
 // const deleteBook = require("../controllers/booksControllers/deleteBook");
 
 //* GET ALL BOOKS AND QUERY BOOKS BY NAME
@@ -160,6 +162,31 @@ bookRoutes.get("/", async (req, res) => {
   } catch (error) {
     res.status(401).json({ error: error.message });
   }
+});
+
+bookRoutes.get("/filters", async (req, res) => {
+  const { min, max } = req.query;
+  try {
+    const getallfilters = await getAllFilters(min, max);
+    res.status(200).json(getallfilters);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+  // const getallfilters = await getAllFilters(min, max);
+  // console.log(getallfilters);
+});
+
+bookRoutes.get("/filtrar", async (req, res) => {
+  try {
+    const { author, genre, min, max } = req.query;
+    const allbooks = await combiningFilter(author, genre, min, max);
+    res.status(200).json(allbooks);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+  // const { author, genre, min, max } = req.query;
+  // const allbooks = await combiningFilter(author, genre, min, max);
+  // console.log(allbooks);
 });
 
 module.exports = bookRoutes;
