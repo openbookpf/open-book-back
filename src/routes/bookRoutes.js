@@ -13,7 +13,6 @@ const orderBooksByPrice = require("../controllers/booksControllers/orderBooksByP
 const modifyBook = require("../controllers/booksControllers/modifyBookController");
 const uploadImage = require("../controllers/booksControllers/uploadImage");
 const createBookFrontEnd = require("../controllers/booksControllers/createBookFrontEnd");
-// const deleteBook = require("../controllers/booksControllers/deleteBook");
 
 //* GET ALL BOOKS AND QUERY BOOKS BY NAME
 bookRoutes.get("/", async (req, res) => {
@@ -124,26 +123,6 @@ bookRoutes.post(
     }
   }
 );
-
-//? DEBERIAMOS MANTENER ESTA RUTA DE IGUAL FORMA? Se puede utilizar la de modify books y ya
-// bookRoutes.delete("/deletebook/:ISBN", async (req, res) => {
-//   const { ISBN } = req.params;
-
-//   try {
-//     const borrar = await deleteBook(ISBN);
-//     if (borrar) {
-//       res.status(200).send({
-//         message: `Libro con ISBN ${ISBN} ha sido eliminado correctamente.`,
-//       });
-//     } else {
-//       res
-//         .status(404)
-//         .send({ message: `No se encontró ningún libro con ISBN ${ISBN}.` });
-//     }
-//   } catch (error) {
-//     res.status(500).json({ error: error.message });
-//   }
-// });
 
 //* GET ALL BOOKS AND QUERY BOOKS BY NAME
 bookRoutes.get("/", async (req, res) => {
