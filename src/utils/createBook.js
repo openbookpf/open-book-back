@@ -1,4 +1,4 @@
-const { book } = require("../../db");
+const { book } = require("../db");
 
 const createBook = async ({
   ISBN,

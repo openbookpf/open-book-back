@@ -10,12 +10,8 @@ conn
     server.listen(port, async () => {
       console.log(`Server listening on port ${port}`);
       montarBaseDeDatos();
-      // try {
-      //   result = await deletebook("9780590353427");
-      //   console.log(result);
-      // } catch (error) {
-      //   console.log(error);
-      // }
     });
   })
-  .catch((error) => console.error(error));
+  .catch((error) =>
+    console.error("Database connection error:", error)
+  );

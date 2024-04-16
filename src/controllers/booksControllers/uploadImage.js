@@ -24,7 +24,7 @@ const upload = multer({ storage: storage });
 // Middleware to handle image upload
 const uploadImage = (req, res, next) => {
   // Use the middleware to handle single file upload
-  upload.single("book_cover")(req, res, function (err) {
+  upload.single("book_cover_url")(req, res, function (err) {
     if (err instanceof multer.MulterError) {
       return res.status(400).json({ message: "Error uploading image" });
     } else if (err) {

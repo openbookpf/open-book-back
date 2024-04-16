@@ -1,8 +1,8 @@
 const { book } = require("../../db");
 
-const getBookController = async () => {
+const getAllBooksController = async () => {
   const books = await book.findAll();
   return books;
 };
 
-module.exports = getBookController;
+module.exports = getAllBooksController;
