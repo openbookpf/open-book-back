@@ -1,7 +1,6 @@
 const { book } = require("../../db");
-const getAllBooksController = require("./getAllBooksController");
 
-const getAllFilters = async (downval, upval) => {
+const getAllOptionsForFilters = async () => {
   const resultobj = {};
   const allbooks = await book.findAll();
   const allgenres = new Set(
@@ -17,8 +16,7 @@ const getAllFilters = async (downval, upval) => {
   resultobj.genres = Array.from(allgenres);
   resultobj.authors = Array.from(allauthors);
 
-  // return resultobj;
   return resultobj;
 };
 
-module.exports = getAllFilters;
+module.exports = getAllOptionsForFilters;
