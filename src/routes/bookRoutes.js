@@ -7,12 +7,11 @@ const createBookValidation = require("../middleware/createBookValidation");
 const getAllBooksController = require("../controllers/booksControllers/getAllBooksController");
 const getBookByIdController = require("../controllers/booksControllers/getBookByIdController");
 const getBookByNameController = require("../controllers/booksControllers/getBookByNameController");
-const filterByGenre = require("../controllers/booksControllers/filterByGenre");
-const filterByAuthor = require("../controllers/booksControllers/filterByAuthor");
-const orderBooksByPrice = require("../controllers/booksControllers/orderBooksByPrice");
 const modifyBook = require("../controllers/booksControllers/modifyBookController");
-const uploadImage = require("../controllers/booksControllers/uploadImage");
+const uploadImage = require("../middleware/uploadImage");
 const createBookFrontEnd = require("../controllers/booksControllers/createBookFrontEnd");
+const getAllOptionsForFilters = require("../controllers/booksControllers/getAllOptionsForFilters");
+const combiningFilter = require("../controllers/booksControllers/combiningFilter");
 
 //* GET ALL BOOKS AND QUERY BOOKS BY NAME
 bookRoutes.get("/", async (req, res) => {
@@ -31,50 +30,13 @@ bookRoutes.get("/", async (req, res) => {
 });
 
 //* GET BOOK BY ID
-bookRoutes.get("/bookId/:id",  async (req, res) => {
+bookRoutes.get("/bookId/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const foundBook = await getBookByIdController(id);
     res.status(200).json(foundBook);
   } catch (error) {
     res.status(401).json({ error: error.message });
-  }
-});
-
-//* FILTER BY GENRE
-bookRoutes.get("/filtrar-genre", async (req, res) => {
-  const { genre } = req.query;
-  try {
-    const filteredBooks = genre
-      ? await filterByGenre(genre)
-      : await getBookController();
-    res.status(200).json(filteredBooks);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-//* FILTER BY AUTHOR'S NAME
-bookRoutes.get("/filtrar-autor", async (req, res) => {
-  const { author } = req.query;
-  try {
-    const bookbyautores = author
-      ? await filterByAuthor(author)
-      : await getBookController();
-    res.status(200).json(bookbyautores);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-//* ORDER BY PRICE
-bookRoutes.get("/order-by-price/:order", async (req, res) => {
-  const {order} = req.params
-  try {
-    const nuevoorden = await orderBooksByPrice(order);
-    res.status(200).json(nuevoorden);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
   }
 });
 
@@ -99,15 +61,15 @@ bookRoutes.put("/bookId/:id", async (req, res) => {
 //* CREATE A BOOK
 bookRoutes.post(
   "/",
-  createBookValidation(createBookSchema),
   uploadImage,
+  createBookValidation(createBookSchema),
   async (req, res) => {
     try {
       const { ISBN, book_title, author, genre, book_description, price } =
         req.body;
 
       console.log(req.file.path);
-      const bookCoverUrl = req.file.path;
+      const book_cover_url = req.file.path;
       const newBook = await createBookFrontEnd({
         ISBN,
         book_title,
@@ -115,7 +77,7 @@ bookRoutes.post(
         genre,
         book_description,
         price,
-        bookCoverUrl,
+        book_cover_url,
       });
       res.status(200).json(newBook);
     } catch (error) {
@@ -137,6 +99,25 @@ bookRoutes.get("/", async (req, res) => {
     }
   } catch (error) {
     res.status(401).json({ error: error.message });
+  }
+});
+
+bookRoutes.get("/filters", async (req, res) => {
+  try {
+    const getallfilters = await getAllOptionsForFilters();
+    res.status(200).json(getallfilters);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+bookRoutes.get("/filtrar", async (req, res) => {
+  try {
+    const { author, genre, min, max } = req.query;
+    const allbooks = await combiningFilter(author, genre, min, max);
+    res.status(200).json(allbooks);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 });
 

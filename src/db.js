@@ -18,16 +18,16 @@ const sequelize = new Sequelize(
 );
 
 // const sequelize = new Sequelize(DB_DEPLOY, {
-//   dialect: "postgres",
-//   logging: false,
+//    dialect: "postgres",
+//    logging: false,
 //   native: false,
 //   dialectOptions: {
 //     ssl: {
 //       require: true,
-//       rejectUnauthorized: false, // Usar false si no tienes un certificado de CA válido
+//        rejectUnauthorized: false, // Usar false si no tienes un certificado de CA válido
+//      },
 //     },
-//   },
-// });
+//   });
 
 userModel(sequelize);
 bookModel(sequelize);
