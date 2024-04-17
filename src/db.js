@@ -7,27 +7,18 @@ const orderModel = require("./models/Order");
 const orderItemModel = require("./models/OrderItem");
 const paymentModel = require("./models/Payment");
 const reviewModel = require("./models/Review");
-// const genreModel = require("./models/Genre");
 
-const sequelize = new Sequelize(
-  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/openbook`,
-  {
+const sequelize = new Sequelize(DB_DEPLOY, {
+    dialect: "postgres",
     logging: false,
-    native: false,
-  }
-);
-
-// const sequelize = new Sequelize(DB_DEPLOY, {
-//    dialect: "postgres",
-//    logging: false,
-//   native: false,
-//   dialectOptions: {
-//     ssl: {
-//       require: true,
-//        rejectUnauthorized: false, // Usar false si no tienes un certificado de CA válido
-//      },
-//     },
-//   });
+   native: false,
+   dialectOptions: {
+     ssl: {
+       require: true,
+        rejectUnauthorized: false, // Usar false si no tienes un certificado de CA válido
+      },
+     },
+ });
 
 userModel(sequelize);
 bookModel(sequelize);
