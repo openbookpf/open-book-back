@@ -6,12 +6,11 @@ module.exports = (sequelize) => {
   sequelize.define(
     "review",
     {
-      review_id: {
+      id: {
         type: DataTypes.STRING,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
       },
-
       rating: {
         type: DataTypes.FLOAT,
         allowNull: false,
@@ -22,7 +21,7 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
 
-      review_date: {
+      date: {
         type: DataTypes.STRING,
         allowNull: false,
       },

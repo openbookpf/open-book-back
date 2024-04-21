@@ -7,6 +7,11 @@ const orderModel = require("./models/Order");
 const orderItemModel = require("./models/OrderItem");
 const paymentModel = require("./models/Payment");
 const reviewModel = require("./models/Review");
+const genreModel = require("./models/Genre");
+const authorModel = require("./models/Author");
+const cartModel = require("./models/Cart");
+const discountsModel = require("./models/discounts");
+const editorialModel = require("./models/editorial");
 
 const sequelize = new Sequelize(DB_DEPLOY, {
     dialect: "postgres",
@@ -26,9 +31,25 @@ orderModel(sequelize);
 orderItemModel(sequelize);
 paymentModel(sequelize);
 reviewModel(sequelize);
-// genreModel(sequelize);
+genreModel(sequelize);
+authorModel(sequelize);
+editorialModel(sequelize);
+cartModel(sequelize);
+discountsModel(sequelize);
 
-const { book, order, order_item, payment, review, user } = sequelize.models;
+const {
+  book,
+  order,
+  order_item,
+  payment,
+  review,
+  user,
+  editorial,
+  author,
+  discounts,
+  cart,
+  genre,
+} = sequelize.models;
 
 // One-to-many relationship (both ends) between User and Order.
 user.hasMany(order, {
@@ -39,14 +60,17 @@ order.belongsTo(user, {
   foreignKey: "user_id",
 });
 
-// One-to-many relationship (both ends) between Book and Genre.
-// book.hasMany(genre, {
-//   foreignKey: "ISBN",
-// });
+//Relación de muchos a muchos que genera tabla intermedia de favoritos.
+user.belongsToMany(book, { through: "favorite_user" });
+book.belongsToMany(user, { through: "favorite_user" });
 
-// genre.belongsTo(book, {
-//   foreignKey: "ISBN",
-// });
+// Relacion de cart hacia books de muchos a muchos
+cart.belongsToMany(book, { through: "CartBook" });
+book.belongsToMany(cart, { through: "CartBook" });
+
+//Relación de uno a uno con usuario y carrito
+user.hasOne(cart);
+cart.belongsTo(user);
 
 // One-to-many relationship (both ends) between Order and Order_Item.
 order.hasMany(order_item, {
@@ -77,11 +101,11 @@ order_item.belongsTo(book, {
 
 // One-to-many relationship (both ends) between User and Review.
 user.hasMany(review, {
-  foreignKey: "user_id",
+  foreignKey: "id_user",
 });
 
 review.belongsTo(user, {
-  foreignKey: "user_id",
+  foreignKey: "id_user",
 });
 
 // One-to-many relationship (both ends) between Book and Review.
@@ -92,6 +116,23 @@ book.hasMany(review, {
 review.belongsTo(book, {
   foreignKey: "ISBN",
 });
+
+discounts.hasMany(book, {
+  foreignKey: "id_discounts",
+});
+
+book.belongsTo(discounts, {
+  foreignKey: "id_discounts",
+});
+
+author.belongsToMany(book, { through: "author_books" });
+book.belongsToMany(author, { through: "author_books" });
+
+genre.belongsToMany(book, { through: "genre_books" });
+book.belongsToMany(genre, { through: "genre_books" });
+
+editorial.belongsToMany(book, { through: "editorial_books" });
+book.belongsToMany(editorial, { through: "editorial_books" });
 
 //* NOTE: These associations enable bidirectional querying between associated tables.
 

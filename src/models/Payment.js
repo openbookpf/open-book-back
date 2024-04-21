@@ -6,13 +6,18 @@ module.exports = (sequelize) => {
   sequelize.define(
     "payment",
     {
-      payment_id: {
+      id: {
+        type: DataTypes.STRING,
+        defaultValue: DataTypes.UUIDV4,
+        primaryKey: true,
+      },
+      id_payment: {
         type: DataTypes.STRING,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
       },
 
-      payment_date: {
+      date: {
         type: DataTypes.STRING,
         allowNull: false,
       },

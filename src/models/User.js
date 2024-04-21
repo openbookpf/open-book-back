@@ -6,39 +6,82 @@ module.exports = (sequelize) => {
   sequelize.define(
     "user",
     {
-      user_id: {
-        type: DataTypes.STRING,
+      id: {
+        type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
+        unique: true,
       },
-      user_name: {
+      nro_document: {
+        type: DataTypes.STRING,
+        primaryKey: true,
+        validate: {
+          len: [1, 20],
+          isAlphanumeric: true,
+        },
+      },
+      name: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-
-      email_address: {
+      lastname: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-
+      email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      verified_email: {
+        type: DataTypes.BOOLEAN(),
+        allowNull: false,
+        defaultValue: false,
+      },
       phone_number: {
         type: DataTypes.STRING,
-        allowNull: false,
+        validate: {
+          is: {
+            args: /^[0-9\-\+\s]+$/,
+          },
+        },
       },
-
       password: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(),
+        validate: {
+          is: /^(?=.*[0-9])(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*[a-zA-Z])[a-zA-Z0-9!@#$%^&*(),.?":{}|<>]{8,15}$/,
+        },
         allowNull: false,
       },
-
+      adress_street: {
+        type: DataTypes.STRING,
+      },
+      adress_nro: {
+        type: DataTypes.STRING,
+      },
+      adress_cp: {
+        type: DataTypes.STRING,
+      },
+      brithdate: {
+        type: DataTypes.DATEONLY,
+      },
+      date_creation: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NOW,
+      },
+      quantity_review: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0,
+      },
+      is_active: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: true,
+      },
       user_type: {
         type: DataTypes.STRING,
-        defaultValue: "store_customer",
-        allowNull: true,
-      },
-      user_status: {
-        type: DataTypes.STRING,
-        defaultValue: "active",
+        defaultValue: "shoppeer",
         allowNull: true,
       },
     },
