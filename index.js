@@ -8,6 +8,7 @@ conn
   .sync({ force: true })
   .then(() => {
     server.listen(port, async () => {
+      montarBaseDeDatos();
       console.log(`Server listening on port ${port}`);
     });
   })
