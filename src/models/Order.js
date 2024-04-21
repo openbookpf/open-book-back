@@ -12,13 +12,21 @@ module.exports = (sequelize) => {
         primaryKey: true,
       },
 
-      order_date: {
+      date: {
         type: DataTypes.STRING,
         allowNull: false,
       },
 
       total_amount: {
         type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      state: {
+        type: DataTypes.ENUM('created', 'in_progress', 'finalized'),
+        defaultValue: "finalized",
+      },
+      shipping_adress: {
+        type: DataTypes.STRING,
         allowNull: false,
       },
     },

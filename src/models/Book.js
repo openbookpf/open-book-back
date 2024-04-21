@@ -58,8 +58,7 @@ module.exports = (sequelize) => {
         type: DataTypes.FLOAT,
         allowNull: false,
         validate: {
-          isFloat: {
-          },
+          isFloat: {},
           min: {
             args: [0],
           },
@@ -80,6 +79,15 @@ module.exports = (sequelize) => {
           },
         },
       },
+      average_mark: {
+        type: DataTypes.FLOAT,
+        allowNull: false,
+        defaultValue: 0,
+        validate: {
+          min: 0,
+          max: 10,
+        },
+      },
       book_status: {
         type: DataTypes.BOOLEAN,
         defaultValue: true,
@@ -87,6 +95,21 @@ module.exports = (sequelize) => {
           isBoolean: "The data must be true or false",
         },
       },
+      available: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: true,
+      },
+      year_of_edition: {
+        type: DataTypes.INTEGER,
+        validate: {
+          isInt: true,
+          min: 1700, 
+          max: new Date().getFullYear()
+        },
+      },
+      age_segment: {
+        type: DataTypes.ENUM('Infantil', 'Juvenil', 'Adulto'),
+      }
     },
     { timestamps: false }
   );

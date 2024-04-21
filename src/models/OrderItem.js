@@ -6,7 +6,7 @@ module.exports = (sequelize) => {
   sequelize.define(
     "order_item",
     {
-      oder_item_id: {
+      id: {
         type: DataTypes.STRING,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
