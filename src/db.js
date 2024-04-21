@@ -9,13 +9,6 @@ const paymentModel = require("./models/Payment");
 const reviewModel = require("./models/Review");
 // const genreModel = require("./models/Genre");
 
-const sequelize = new Sequelize(
-  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/openbook`,
-  {
-    logging: false,
-    native: false,
-  }
-);
 
  const sequelize = new Sequelize(DB_DEPLOY, {
     dialect: "postgres",
