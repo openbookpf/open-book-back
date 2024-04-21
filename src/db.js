@@ -9,13 +9,17 @@ const paymentModel = require("./models/Payment");
 const reviewModel = require("./models/Review");
 // const genreModel = require("./models/Genre");
 
-const sequelize = new Sequelize(
-  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/openbook`,
-  {
+const sequelize = new Sequelize(`postgres://postgres:Samictwd15@localhost/openbook`, {
     logging: false,
     native: false,
-  }
-);
+});
+// const sequelize = new Sequelize(
+//   `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/openbook`,
+//   {
+//     logging: false,
+//     native: false,
+//   }
+// );
 
 // const sequelize = new Sequelize(DB_DEPLOY, {
 //    dialect: "postgres",
@@ -41,11 +45,11 @@ const { book, order, order_item, payment, review, user } = sequelize.models;
 
 // One-to-many relationship (both ends) between User and Order.
 user.hasMany(order, {
-  foreignKey: "user_id",
+    foreignKey: "user_id",
 });
 
 order.belongsTo(user, {
-  foreignKey: "user_id",
+    foreignKey: "user_id",
 });
 
 // One-to-many relationship (both ends) between Book and Genre.
@@ -59,52 +63,52 @@ order.belongsTo(user, {
 
 // One-to-many relationship (both ends) between Order and Order_Item.
 order.hasMany(order_item, {
-  foreignKey: "order_id",
+    foreignKey: "order_id",
 });
 
 order_item.belongsTo(order, {
-  foreignKey: "order_id",
+    foreignKey: "order_id",
 });
 
 // One-to-one relationship (both ends) between Order and Payment.
 order.hasOne(payment, {
-  foreignKey: "order_id",
+    foreignKey: "order_id",
 });
 
 payment.belongsTo(order, {
-  foreignKey: "order_id",
+    foreignKey: "order_id",
 });
 
 // One-to-many relationship (both ends) between Book and Order_item.
 book.hasMany(order_item, {
-  foreignKey: "ISBN",
+    foreignKey: "ISBN",
 });
 
 order_item.belongsTo(book, {
-  foreignKey: "ISBN",
+    foreignKey: "ISBN",
 });
 
 // One-to-many relationship (both ends) between User and Review.
 user.hasMany(review, {
-  foreignKey: "user_id",
+    foreignKey: "user_id",
 });
 
 review.belongsTo(user, {
-  foreignKey: "user_id",
+    foreignKey: "user_id",
 });
 
 // One-to-many relationship (both ends) between Book and Review.
 book.hasMany(review, {
-  foreignKey: "ISBN",
+    foreignKey: "ISBN",
 });
 
 review.belongsTo(book, {
-  foreignKey: "ISBN",
+    foreignKey: "ISBN",
 });
 
 //* NOTE: These associations enable bidirectional querying between associated tables.
 
 module.exports = {
-  ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
-  conn: sequelize, // para importart la conexión { conn } = require('./db.js');
+    ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
+    conn: sequelize, // para importart la conexión { conn } = require('./db.js');
 };
