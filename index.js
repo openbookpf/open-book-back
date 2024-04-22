@@ -5,7 +5,7 @@ const { conn } = require("./src/db.js");
 const montarBaseDeDatos = require("./src/utils/montarBaseDeDatos");
 
 conn
-  .sync({ force: true })
+  .sync({ alter: true })
   .then(() => {
     server.listen(port, async () => {
       console.log(`Server listening on port ${port}`);
