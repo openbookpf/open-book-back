@@ -109,4 +109,4 @@ package-lock.json
 
 # ignorar configuraciones
 index.js
-src/db.js
+
