@@ -2,6 +2,7 @@ const { Router } = require("express");
 const userHandler = Router();
 const createUser = require("../controllers/userControllers/createUser");
 const getAllUsers = require("../controllers/userControllers/getAllUsers");
+const checkJwt = require("../middleware/auth0log.js");
 // const deleteUser = require("../controllers/userControllers/deleteUser");
 
 //Create an user in the database
@@ -41,5 +42,11 @@ userHandler.get("/", async (req, res) => {
 //     res.status(500).json({ error: error.message });
 //   }
 // });
+
+userHandler.get("/authenticate", checkJwt, (req, res) => {
+  res.send({
+    msg: "Your access token was successfully validated!",
+  });
+});
 
 module.exports = userHandler;

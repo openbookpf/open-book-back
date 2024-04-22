@@ -276,4 +276,17 @@ module.exports = [
       "Set on the desert planet Arrakis, Dune is the story of the boy Paul Atreides, heir to a noble family tasked with ruling an inhospitable world where the only thing of value is the “spice” melange, a drug capable of extending life and enhancing consciousness. Coveted across the known universe, melange is a prize worth killing for...",
     price: 16.99,
   },
+  {
+    ISBN: "9781501142970",
+    book_title: "It",
+    author: "Stephen King",
+    book_cover_url:
+      "https://res.cloudinary.com/dprhzfhiy/image/upload/v1713181806/OPEN_BOOK/file_xq2l4h.jpg",
+    genre: "Horror",
+    book_description:
+      "Welcome to Derry, Maine. It's a small city, a place as hauntingly familiar as your own hometown. Only in Derry the haunting is real.\r\n\r\nThey were seven teenagers when they first stumbled upon the horror. Now they are grown-up men and women who have gone out into the big world to gain success and happiness. But the promise they made twenty-eight years ago calls them reunite in the same place where, as teenagers, they battled an evil creature that preyed on the city's children. Now, children are being murdered again and their repressed memories of that terrifying summer return as they prepare to once again battle the monster lurking in Derry's sewers.",
+    price: 35.07,
+    quantity: 0,
+    book_status: true,
+  },
 ];
