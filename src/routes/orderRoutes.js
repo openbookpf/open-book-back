@@ -1,5 +1,6 @@
 const { Router } = require("express");
 const orderRoutes = Router();
+const emailNotification = require("../controllers/orderControllers/emailNotification");
 
 //controllers
 const {
@@ -29,10 +30,16 @@ orderRoutes.post("/", async (req, res) => {
 orderRoutes.post("/:orderID/capture", async (req, res) => {
   try {
     const { orderID } = req.params;
-    console.log(!orderID ? orderID : "THERE IS NO ORDER ID");
+    const { name, emailAddress, totalValue } = req.body;
+
+    console.log(name);
+    console.log(emailAddress);
+    console.log(totalValue);
 
     const { jsonResponse, httpStatusCode } = await captureOrder(orderID);
+
     res.status(httpStatusCode).json(jsonResponse);
+    emailNotification(name, emailAddress, orderID, totalValue);
   } catch (error) {
     console.error("Failed to create order:", error);
     res.status(500).json({ error: "Failed to capture order." });
