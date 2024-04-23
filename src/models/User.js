@@ -20,15 +20,18 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-
+      picture: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
       phone_number: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
 
       password: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
 
       user_type: {
