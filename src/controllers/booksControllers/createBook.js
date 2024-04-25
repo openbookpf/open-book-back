@@ -1,24 +1,32 @@
 const { book } = require("../../db");
 
-const createBookFrontEnd = async ({
+const createBook = async ({
   ISBN,
   book_title,
   author,
-  book_cover_url,
   genre,
   book_description,
   price,
+  book_cover_url,
+  editorial,
+  year_of_edition,
+  language,
+  age_segment,
 }) => {
   const newbook = await book.create({
     ISBN,
     book_title,
     author,
-    book_cover_url,
     genre,
     book_description,
     price,
+    book_cover_url,
+    editorial,
+    year_of_edition,
+    language,
+    age_segment,
   });
   return newbook;
 };
 
-module.exports = createBookFrontEnd;
+module.exports = createBook;

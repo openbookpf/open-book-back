@@ -22,13 +22,6 @@ module.exports = (sequelize) => {
           len: [1, 255],
         },
       },
-      author: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          len: [1, 100],
-        },
-      },
       book_cover_url: {
         type: DataTypes.STRING,
         allowNull: false,

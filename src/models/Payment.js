@@ -16,7 +16,6 @@ module.exports = (sequelize) => {
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
       },
-
       date: {
         type: DataTypes.STRING,
         allowNull: false,

@@ -4,7 +4,7 @@ const { DataTypes } = require("sequelize");
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define(
-    "author",
+    "language",
     {
       id: {
         type: DataTypes.INTEGER,
@@ -15,14 +15,6 @@ module.exports = (sequelize) => {
       name: {
         type: DataTypes.STRING,
         allowNull: false,
-      },
-
-      description: {
-        type: DataTypes.STRING(2000),
-        allowNull: false,
-        validate: {
-          len: [1, 2000],
-        },
       },
     },
     { timestamps: false }

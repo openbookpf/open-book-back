@@ -80,7 +80,7 @@ module.exports = (sequelize) => {
         defaultValue: true,
       },
       user_type: {
-        type: DataTypes.STRING,
+        type: DataTypes.ENUM('shoppeer', 'trader', 'admin'),
         defaultValue: "shoppeer",
         allowNull: true,
       },

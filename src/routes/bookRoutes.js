@@ -9,7 +9,7 @@ const getBookByIdController = require("../controllers/booksControllers/getBookBy
 const getBookByNameController = require("../controllers/booksControllers/getBookByNameController");
 const modifyBook = require("../controllers/booksControllers/modifyBookController");
 const uploadImage = require("../middleware/uploadImage");
-const createBookFrontEnd = require("../controllers/booksControllers/createBookFrontEnd");
+const createBook = require("../controllers/booksControllers/createBook");
 const getAllOptionsForFilters = require("../controllers/booksControllers/getAllOptionsForFilters");
 const combiningFilter = require("../controllers/booksControllers/combiningFilter");
 
@@ -70,7 +70,7 @@ bookRoutes.post(
 
       console.log(req.file.path);
       const book_cover_url = req.file.path;
-      const newBook = await createBookFrontEnd({
+      const newBook = await createBook({
         ISBN,
         book_title,
         author,
@@ -78,6 +78,10 @@ bookRoutes.post(
         book_description,
         price,
         book_cover_url,
+        editorial,
+        year_of_edition,
+        language,
+        age_segment
       });
       res.status(200).json(newBook);
     } catch (error) {

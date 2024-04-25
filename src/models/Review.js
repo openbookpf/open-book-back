@@ -11,14 +11,14 @@ module.exports = (sequelize) => {
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
       },
+      
       rating: {
-        type: DataTypes.FLOAT,
+        type: DataTypes.INTEGER,
         allowNull: false,
-      },
-
-      comment: {
-        type: DataTypes.STRING,
-        allowNull: false,
+        validate: {
+          min: 1,
+          max: 5
+        }
       },
 
       date: {

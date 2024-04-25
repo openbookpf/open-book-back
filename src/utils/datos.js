@@ -9,6 +9,10 @@ module.exports = [
     book_description:
       "Scout Finch, daughter of the town lawyer Atticus, has just started school; but her carefree days come to an end when a black man in their community is accused of raping a white woman, and Scout's father is appointed to defend him.",
     price: 10.99,
+    editorial: "Anagrama",
+    year_of_edition: 2019,
+    language: "Spanish",
+    age_segment: "Adulto"
   },
   {
     ISBN: "9780547249643",
@@ -109,6 +113,10 @@ module.exports = [
     book_description:
       "It's no longer safe for Harry at Hogwarts, so he and his best friends, Ron and Hermione, are on the run. Professor Dumbledore has given them clues about what they need to do to defeat the dark wizard, Lord Voldemort, once and for all, but it's up to them to figure out what these hints and suggestions really mean.",
     price: 16.99,
+    editorial: "Anagrama",
+    year_of_edition: 2019,
+    language: "Spanish",
+    age_segment: "Adulto"
   },
   {
     ISBN: "9780439064873",

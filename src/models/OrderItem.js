@@ -17,7 +17,7 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
 
-      subtotal_amount: {
+      subtotal: {
         type: DataTypes.FLOAT,
         allowNull: false,
       },
