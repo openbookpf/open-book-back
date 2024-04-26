@@ -1,6 +1,6 @@
 const { user } = require("../../db");
-const findUserByName = (user_name) => {
-  const usuario = user.findOne({
+const findUserByName = async (user_name) => {
+  const usuario = await user.findOne({
     where: { user_name: user_name },
   });
   return usuario;
