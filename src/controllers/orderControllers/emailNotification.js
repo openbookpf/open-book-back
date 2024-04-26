@@ -18,7 +18,6 @@ async function emailNotification(name, emailAddress, orderID, totalValue) {
     from: `"OpenBook Library 📕📖📗" < ${process.env.EMAIL}>`, // sender address
     to: emailAddress, // list of receivers
     subject: "Thanks for Your Purchase", // Subject line
-    text: "Hello world?", // plain text body
     html: `
       <!DOCTYPE html>
       <html lang="en">
