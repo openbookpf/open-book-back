@@ -19,7 +19,6 @@ module.exports = (sequelize) => {
 
       description: {
         type: DataTypes.STRING(2000),
-        allowNull: false,
         validate: {
           len: [1, 2000],
         },

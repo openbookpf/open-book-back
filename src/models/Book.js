@@ -33,13 +33,6 @@ module.exports = (sequelize) => {
           },
         },
       },
-      genre: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          len: [1, 100],
-        },
-      },
       book_description: {
         type: DataTypes.STRING(2000),
         allowNull: false,

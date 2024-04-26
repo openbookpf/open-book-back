@@ -30,7 +30,7 @@ bookRoutes.get("/", async (req, res) => {
 });
 
 //* GET BOOK BY ID
-bookRoutes.get("/bookId/:id", async (req, res) => {
+bookRoutes.get("/id/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const foundBook = await getBookByIdController(id);
@@ -41,7 +41,7 @@ bookRoutes.get("/bookId/:id", async (req, res) => {
 });
 
 //* MODIFY BOOK DATA
-bookRoutes.put("/bookId/:id", async (req, res) => {
+bookRoutes.put("/id/:id", async (req, res) => {
   const { id } = req.params;
   const newData = req.body;
   try {
@@ -65,11 +65,22 @@ bookRoutes.post(
   createBookValidation(createBookSchema),
   async (req, res) => {
     try {
-      const { ISBN, book_title, author, genre, book_description, price } =
-        req.body;
+      const {
+        ISBN,
+        book_title,
+        author,
+        genre,
+        editorial,
+        year_of_edition,
+        language,
+        age_segment,
+        book_description,
+        price,
+        book_cover_url,
+      } = req.body;
 
-      console.log(req.file.path);
-      const book_cover_url = req.file.path;
+      //console.log(req.file.path);
+      //const book_cover_url = req.file.path;
       const newBook = await createBook({
         ISBN,
         book_title,
@@ -81,7 +92,7 @@ bookRoutes.post(
         editorial,
         year_of_edition,
         language,
-        age_segment
+        age_segment,
       });
       res.status(200).json(newBook);
     } catch (error) {

@@ -1,7 +1,14 @@
-const { book } = require("../../db");
+const { book, author, genre, language, editorial } = require("../../db");
 
 const getBookByIdController = async (id) => {
-  const foundBook = await book.findByPk(id);
+  const foundBook = await book.findByPk(id, {
+    include: [
+      { model: author, attributes: ["name"], through: { attributes: [] } },
+      { model: genre, attributes: ["name"], through: { attributes: [] } },
+      { model: editorial, attributes: ["name"], through: { attributes: [] } },
+      { model: language, attributes: ["name"], through: { attributes: [] } },
+    ],
+  });
   if (foundBook) {
     return foundBook;
   } else {

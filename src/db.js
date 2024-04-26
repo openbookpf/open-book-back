@@ -74,9 +74,13 @@ cart.belongsTo(user);
 user.hasMany(review);
 review.belongsTo(user);
 
+// Relación de Book a Review (1 a muchos)
+book.hasMany(review);
+review.belongsTo(book);
+
 // Relación de User a Book (muchos a muchos)
-user.belongsToMany(book, { through: 'userBook' });
-book.belongsToMany(user, { through: 'userBook' });
+user.belongsToMany(book, { through: 'favorites_user' });
+book.belongsToMany(user, { through: 'favorites_user' });
 
 // Relacion de order a order_item de 1 a muchos
 order.hasMany(order_item);
@@ -94,21 +98,21 @@ book.belongsToMany(cart, { through: 'cartBook' });
 discounts.hasOne(book);
 book.belongsTo(discounts);
 
-// Relación de Author a Book (muchos a muchos)
-author.belongsToMany(book, { through: 'bookAuthor' });
-book.belongsToMany(author, { through: 'bookAuthor' });
+// Relación de Author a Book (1 a muchos)
+author.hasMany(book);
+book.belongsTo(author);
 
 // Relación de Genre a Book (muchos a muchos)
 genre.belongsToMany(book, { through: 'bookGenre' });
 book.belongsToMany(genre, { through: 'bookGenre' });
 
-// Relación de Editorial a Book (muchos a muchos)
-editorial.belongsToMany(book, { through: 'bookEditorial' });
-book.belongsToMany(editorial, { through: 'bookEditorial' });
+// Relación de Editorial a Book (1 a muchos)
+editorial.hasMany(book);
+book.belongsTo(editorial);
 
-// Relación de Language a Book (muchos a muchos)
-language.belongsToMany(book, { through: 'bookLanguage' });
-book.belongsToMany(language, { through: 'bookLanguage' });
+// Relación de Language a Book (1 a muchos)
+language.hasMany(book);
+book.belongsTo(language);
 
 module.exports = {
   ...sequelize.models, 

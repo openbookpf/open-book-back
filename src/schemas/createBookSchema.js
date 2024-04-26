@@ -9,7 +9,7 @@ const createBookSchema = Joi.object({
 
   book_cover_url: Joi.any(),
 
-  genre: Joi.string().min(1).max(100).required(),
+  genre: Joi.any(),
 
   book_description: Joi.string().min(1).max(2000).required(),
 
@@ -18,6 +18,10 @@ const createBookSchema = Joi.object({
   quantity: Joi.number().integer().min(0).max(9999),
 
   book_status: Joi.boolean(),
+  editorial: Joi.any(),
+  year_of_edition: Joi.any(),
+  language: Joi.any(),
+  age_segment: Joi.any(),
 });
 
 module.exports = createBookSchema;

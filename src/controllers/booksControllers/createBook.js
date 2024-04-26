@@ -1,32 +1,61 @@
-const { book } = require("../../db");
+const { book, genre, author, editorial, language } = require("../../db");
+const getBookByIdController = require("./getBookByIdController");
 
 const createBook = async ({
   ISBN,
   book_title,
-  author,
-  genre,
+  author: authorName,
+  genre: genresNames,
   book_description,
   price,
   book_cover_url,
-  editorial,
+  editorial: editorialName,
   year_of_edition,
-  language,
+  language: languageName,
   age_segment,
 }) => {
-  const newbook = await book.create({
+  // Verificar si el autor existe o crear uno nuevo
+  let [newAuthor] = await author.findOrCreate({ where: { name: authorName } });
+
+  // Verificar si los géneros existen o crear nuevos
+  const newGenres = await Promise.all(
+    genresNames.map(async (genreName) => {
+      const [newGenre] = await genre.findOrCreate({
+        where: { name: genreName },
+      });
+      return newGenre;
+    })
+  );
+
+  // Verificar si la editorial existe o crear una nueva
+  let [newEditorial] = await editorial.findOrCreate({
+    where: { name: editorialName },
+  });
+
+  // Verificar si el idioma existe o crear uno nuevo
+  let [newLanguage] = await language.findOrCreate({
+    where: { name: languageName },
+  });
+
+  // Crear el libro y establecer las relaciones con autor, género, editorial y idioma
+  const newBook = await book.create({
     ISBN,
     book_title,
-    author,
-    genre,
     book_description,
     price,
     book_cover_url,
-    editorial,
     year_of_edition,
-    language,
     age_segment,
+    // Establecer las relaciones usando las claves externas
+    authorId: newAuthor.id,
+    editorialId: newEditorial.id,
+    languageId: newLanguage.id,
   });
-  return newbook;
+
+  // Establecer las relaciones
+  await newBook.setGenres(newGenres);
+
+  return "creado con exito";
 };
 
 module.exports = createBook;
