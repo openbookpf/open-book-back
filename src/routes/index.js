@@ -9,9 +9,9 @@ const genreRoutes = require("./genreRoutes");
 
 //Configurar los routers
 //Ejemplo: router.use('/auth', authRouter);
-router.use("/books", bookRoutes);
-router.use("/users", userRoutes);
-router.use("/orders", orderRoutes);
-router.use("/genres", genreRoutes);
+router.use("/book", bookRoutes);
+router.use("/user", userRoutes);
+router.use("/order", orderRoutes);
+router.use("/genre", genreRoutes);
 
 module.exports = router;

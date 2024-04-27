@@ -19,7 +19,7 @@ module.exports = async () => {
 
   const books = await Promise.all(
     datos.map(async (book, index) => {
-      console.log(index);
+      // console.log(index);
       await createBook(book);
     })
   );

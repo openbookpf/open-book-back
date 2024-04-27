@@ -1,13 +1,8 @@
 const { user } = require("../../db");
 
-const createUser = async ({
-  user_name,
-  email_address,
-  phone_number,
-  password,
-}) => {
+const createUser = async ({ user_name, email_address, picture }) => {
   //Validate data provided on the body request
-  if (!user_name || !email_address || !phone_number || !password) {
+  if (!user_name || !email_address || !picture) {
     throw new Error("Data is missing: server can't create user");
   }
 
@@ -15,8 +10,7 @@ const createUser = async ({
   const newUser = await user.create({
     user_name,
     email_address,
-    phone_number,
-    password,
+    picture,
   });
   return newUser;
 };
