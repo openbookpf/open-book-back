@@ -8,6 +8,7 @@ const findUserById = require("../controllers/userControllers/findUserById");
 const findUserByName = require("../controllers/userControllers/findUserByName.js");
 const modifyUserByName = require("../controllers/userControllers/modifyUserByName.js");
 // const deleteUser = require("../controllers/userControllers/deleteUser");
+// holaaaa
 
 //Create an user in the database
 userHandler.post("/", async (req, res) => {
