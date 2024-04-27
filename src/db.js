@@ -14,25 +14,25 @@ const discountsModel = require("./models/Discounts");
 const editorialModel = require("./models/Editorial");
 const languageModel = require("./models/Language");
 
-// const sequelize = new Sequelize(DB_DEPLOY, {
-//     dialect: "postgres",
-//     logging: false,
-//    native: false,
-//    dialectOptions: {
-//      ssl: {
-//        require: true,
-//         rejectUnauthorized: false, // Usar false si no tienes un certificado de CA válido
-//       },
-//      },
-//  });
+const sequelize = new Sequelize(DB_DEPLOY, {
+  dialect: "postgres",
+  logging: false,
+  native: false,
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false, // Usar false si no tienes un certificado de CA válido
+    },
+  },
+});
 
-const sequelize = new Sequelize(
-  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/openbook`,
-  {
-    logging: false,
-    native: false,
-  }
-);
+// const sequelize = new Sequelize(
+//   `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/openbook`,
+//   {
+//     logging: false,
+//     native: false,
+//   }
+// );
 
 userModel(sequelize);
 bookModel(sequelize);
@@ -79,8 +79,8 @@ book.hasMany(review);
 review.belongsTo(book);
 
 // Relación de User a Book (muchos a muchos)
-user.belongsToMany(book, { through: 'favorites_user' });
-book.belongsToMany(user, { through: 'favorites_user' });
+user.belongsToMany(book, { through: "favorites_user" });
+book.belongsToMany(user, { through: "favorites_user" });
 
 // Relacion de order a order_item de 1 a muchos
 order.hasMany(order_item);
@@ -91,8 +91,8 @@ order.hasOne(payment);
 payment.belongsTo(order);
 
 // Relación de Cart a Book (muchos a muchos)
-cart.belongsToMany(book, { through: 'cartBook' });
-book.belongsToMany(cart, { through: 'cartBook' });
+cart.belongsToMany(book, { through: "cartBook" });
+book.belongsToMany(cart, { through: "cartBook" });
 
 // Relación de Discounts a Book (uno a uno)
 discounts.hasOne(book);
@@ -103,8 +103,8 @@ author.hasMany(book);
 book.belongsTo(author);
 
 // Relación de Genre a Book (muchos a muchos)
-genre.belongsToMany(book, { through: 'bookGenre' });
-book.belongsToMany(genre, { through: 'bookGenre' });
+genre.belongsToMany(book, { through: "bookGenre" });
+book.belongsToMany(genre, { through: "bookGenre" });
 
 // Relación de Editorial a Book (1 a muchos)
 editorial.hasMany(book);
@@ -115,6 +115,6 @@ language.hasMany(book);
 book.belongsTo(language);
 
 module.exports = {
-  ...sequelize.models, 
+  ...sequelize.models,
   conn: sequelize, // para importart la conexión { conn } = require('./db.js');
 };
