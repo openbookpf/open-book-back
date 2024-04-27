@@ -15,15 +15,15 @@ const createBook = async ({
   age_segment,
 }) => {
   // Verificar si el autor existe o crear uno nuevo
-  let [newAuthor] = await author.findOrCreate({ where: { name: authorName } });
+  let newAuthor = await author.findOne({ where: { name: authorName } });
 
   // Verificar si los géneros existen o crear nuevos
   const newGenres = await Promise.all(
     genresNames.map(async (genreName) => {
-      const [newGenre] = await genre.findOrCreate({
+      const newGenre = await genre.findOne({
         where: { name: genreName },
       });
-      return newGenre;
+      return newGenre.id;
     })
   );
 

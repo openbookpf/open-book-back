@@ -8,10 +8,8 @@ conn
   .sync({ force: true })
   .then(() => {
     server.listen(port, async () => {
-      //montarBaseDeDatos();
+      montarBaseDeDatos();
       console.log(`Server listening on port ${port}`);
     });
   })
-  .catch((error) =>
-    console.error("Database connection error:", error)
-  );
+  .catch((error) => console.error("Database connection error:", error));

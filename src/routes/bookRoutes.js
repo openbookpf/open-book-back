@@ -76,11 +76,11 @@ bookRoutes.post(
         age_segment,
         book_description,
         price,
-        book_cover_url,
       } = req.body;
 
-      //console.log(req.file.path);
-      //const book_cover_url = req.file.path;
+      //Get the url provided by cloudinary
+      const book_cover_url = req.file.path;
+
       const newBook = await createBook({
         ISBN,
         book_title,

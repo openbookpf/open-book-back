@@ -9,6 +9,8 @@ const bookSchema = Joi.object({
   book_description: Joi.string(),
   price: Joi.number(),
   quantity: Joi.number().integer(),
+  year_of_edition: Joi.number().integer(),
+  age_segment: Joi.string(),
 });
 
 const userSchema = Joi.object({
