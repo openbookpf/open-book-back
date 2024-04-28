@@ -10,10 +10,10 @@ const favoriteRoutes = require("./favoriteRoutes");
 
 //Configurar los routers
 //Ejemplo: router.use('/auth', authRouter);
-router.use("/book", bookRoutes);
-router.use("/user", userRoutes);
-router.use("/order", orderRoutes);
-router.use("/genre", genreRoutes);
-router.use("/favorite", favoriteRoutes);
+router.use("/books", bookRoutes);
+router.use("/users", userRoutes);
+router.use("/orders", orderRoutes);
+router.use("/genres", genreRoutes);
+router.use("/favorites", favoriteRoutes);
 
 module.exports = router;

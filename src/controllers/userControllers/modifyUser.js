@@ -1,11 +1,16 @@
 const { user } = require("../../db");
+const { modifyUserInAuthZeroById } = require("./authZeroApi");
 
-const modifyUser = async (user_id, object) => {
+const modifyUser = async (user_id, updatedInfo) => {
+  let modifiedUserFromAuthZero;
+
   const finduser = await user.findOne({
-    where: { user_id: user_id },
+    where: { idAuth0: user_id },
   });
+
   if (finduser) {
-    await finduser.update(object);
+    await finduser.update(updatedInfo);
+    modifiedUserFromAuthZero = modifyUserInAuthZeroById(user_id, updatedInfo);
     return finduser;
   }
   throw new Error("user not found");
