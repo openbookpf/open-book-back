@@ -6,35 +6,36 @@ module.exports = (sequelize) => {
   sequelize.define(
     "user",
     {
-      id: {
+      user_id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
         unique: true,
       },
-      nro_document: {
+      idAuth0: {
         type: DataTypes.STRING,
-        primaryKey: true,
-        validate: {
-          len: [1, 20],
-          isAlphanumeric: true,
-        },
+        allowNull: true,
       },
-      name: {
+
+      user_name: {
         type: DataTypes.STRING,
         allowNull: false,
       },
       lastname: {
         type: DataTypes.STRING,
+        allowNull: true,
+      },
+      email_address: {
+        type: DataTypes.STRING,
         allowNull: false,
       },
-      email: {
+      picture: {
         type: DataTypes.STRING,
         allowNull: false,
       },
       verified_email: {
         type: DataTypes.BOOLEAN(),
-        allowNull: false,
+        allowNull: true,
         defaultValue: false,
       },
       phone_number: {
@@ -44,34 +45,39 @@ module.exports = (sequelize) => {
             args: /^[0-9\-\+\s]+$/,
           },
         },
+        allowNull: true,
       },
       password: {
         type: DataTypes.STRING(),
         validate: {
           is: /^(?=.*[0-9])(?=.*[!@#$%^&*(),.?":{}|<>])(?=.*[a-zA-Z])[a-zA-Z0-9!@#$%^&*(),.?":{}|<>]{8,15}$/,
         },
-        allowNull: false,
+        allowNull: true,
       },
       adress_street: {
         type: DataTypes.STRING,
+        allowNull: true,
       },
       adress_nro: {
         type: DataTypes.STRING,
+        allowNull: true,
       },
       adress_cp: {
         type: DataTypes.STRING,
+        allowNull: true,
       },
-      brithdate: {
+      birthdate: {
         type: DataTypes.DATEONLY,
+        allowNull: true,
       },
       date_creation: {
         type: DataTypes.DATE,
-        allowNull: false,
+        allowNull: true,
         defaultValue: DataTypes.NOW,
       },
       quantity_review: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         defaultValue: 0,
       },
       is_active: {
@@ -80,7 +86,7 @@ module.exports = (sequelize) => {
         defaultValue: true,
       },
       user_type: {
-        type: DataTypes.ENUM('shoppeer', 'trader', 'admin'),
+        type: DataTypes.ENUM("shoppeer", "trader", "admin"),
         defaultValue: "shoppeer",
         allowNull: true,
       },
@@ -88,3 +94,13 @@ module.exports = (sequelize) => {
     { timestamps: false }
   );
 };
+
+// nro_document: {
+//   type: DataTypes.STRING,
+//   primaryKey: true,
+//   validate: {
+//     len: [1, 20],
+//     isAlphanumeric: true,
+//   },
+//   allowNull: true,
+// },

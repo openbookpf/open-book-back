@@ -13,6 +13,7 @@ const cartModel = require("./models/Cart");
 const discountsModel = require("./models/Discounts");
 const editorialModel = require("./models/Editorial");
 const languageModel = require("./models/Language");
+const favoriteModel = require("./models/Favorite");
 
 // const sequelize = new Sequelize(DB_DEPLOY, {
 //     dialect: "postgres",
@@ -57,6 +58,7 @@ editorialModel(sequelize);
 cartModel(sequelize);
 discountsModel(sequelize);
 languageModel(sequelize);
+favoriteModel(sequelize);
 
 const {
   book,
@@ -71,11 +73,16 @@ const {
   discounts,
   cart,
   genre,
+  favorite,
 } = sequelize.models;
 
 // Relación de User a Order (1 a muchos)
 user.hasMany(order);
 order.belongsTo(user);
+
+// Relacion de User a Favorite
+user.hasMany(favorite);
+favorite.belongsTo(user);
 
 // Relación de User a Cart (1 a 1)
 user.hasOne(cart);
