@@ -7,12 +7,12 @@ const createFavorites = async (newfav) => {
   }
 
   //create new user
-  const newfav = await favorite.create({
+  const newfavorite = await favorite.create({
     user_name,
     email_address,
     picture,
   });
-  return newUser;
+  return newfavorite;
 };
 
 module.exports = createFavorites;

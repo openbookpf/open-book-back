@@ -12,6 +12,10 @@ module.exports = (sequelize) => {
         primaryKey: true,
         unique: true,
       },
+      idAuth0: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
 
       user_name: {
         type: DataTypes.STRING,
