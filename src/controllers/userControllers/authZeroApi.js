@@ -1,13 +1,16 @@
+require("dotenv").config();
 const request = require("request");
 const axios = require("axios");
+
+console.log(process.env.AUTH_ZERO_API_DOMAIN);
 
 //*GET THE TOKEN TO ACCESS THE API
 const getAccessToken = async () => {
   const options = {
     method: "POST",
-    url: "https://dev-s7y248lo78mfufu2.us.auth0.com/oauth/token",
+    url: `https://${process.env.AUTH_ZERO_API_DOMAIN}/oauth/token`,
     headers: { "content-type": "application/json" },
-    body: '{"client_id":"ZKY9hYH1NuoFh4yNXHjG4BDNToW73Lmv","client_secret":"EMIgXA1ne8TMFqsSCkrms5Aq7lv1zOh48wmDLzRYotkTHXcOAcLmDRry9CobXY7C","audience":"https://dev-s7y248lo78mfufu2.us.auth0.com/api/v2/","grant_type":"client_credentials"}',
+    body: `{"client_id":"${process.env.AUTH_ZERO_API_CLIENT_ID}","client_secret":"${process.env.AUTH_ZERO_API_CLIENT_SECRET}","audience":"${process.env.AUTH_ZERO_API_CLIENT_AUDIENCE}","grant_type":"client_credentials"}`,
   };
 
   return new Promise((resolve, reject) => {
@@ -28,7 +31,7 @@ const getAllUsersFromAuthZero = async () => {
   let config = {
     method: "get",
     maxBodyLength: Infinity,
-    url: "https://dev-s7y248lo78mfufu2.us.auth0.com/api/v2/users",
+    url: `https://${process.env.AUTH_ZERO_API_DOMAIN}/api/v2/users`,
     headers: {
       Authorization: `Bearer ${accessToken}`,
       "Content-Type": "application/json",
@@ -75,7 +78,7 @@ const createUserInAuthZero = async (email_address, password) => {
   let config = {
     method: "post",
     maxBodyLength: Infinity,
-    url: "https://dev-s7y248lo78mfufu2.us.auth0.com/api/v2/users",
+    url: `https://${process.env.AUTH_ZERO_API_DOMAIN}/api/v2/users`,
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${accessToken}`,
@@ -102,7 +105,7 @@ const getUserFromAuthZeroById = async (userId) => {
   let config = {
     method: "get",
     maxBodyLength: Infinity,
-    url: `https://dev-s7y248lo78mfufu2.us.auth0.com/api/v2/users/${userId}`,
+    url: `https://${process.env.AUTH_ZERO_API_DOMAIN}/api/v2/users/${userId}`,
     headers: {
       Authorization: `Bearer ${accessToken}`,
       "Content-Type": "application/json",
@@ -126,7 +129,7 @@ const deleteUserFromAuthZeroById = async (userId) => {
   let config = {
     method: "delete",
     maxBodyLength: Infinity,
-    url: `https://dev-s7y248lo78mfufu2.us.auth0.com/api/v2/users/${userId}`,
+    url: `https://${process.env.AUTH_ZERO_API_DOMAIN}/api/v2/users/${userId}`,
     headers: {
       Authorization: `Bearer ${accessToken}`,
       "Content-Type": "application/json",
@@ -173,7 +176,7 @@ const modifyUserInAuthZeroById = async (userId, updatedData) => {
   let config = {
     method: "patch",
     maxBodyLength: Infinity,
-    url: `https://dev-s7y248lo78mfufu2.us.auth0.com/api/v2/users/${userId}`,
+    url: `https://${process.env.AUTH_ZERO_API_DOMAIN}/api/v2/users/${userId}`,
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${accessToken}`,
