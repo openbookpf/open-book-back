@@ -39,7 +39,7 @@ module.exports = async () => {
      //   password: "",
     //    picture: picture,
 //        idAuth0: user_id,
-      };
+   //   };
 
    //   createUser(data);
   //  })
