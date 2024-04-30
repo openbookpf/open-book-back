@@ -15,25 +15,25 @@ const editorialModel = require("./models/Editorial");
 const languageModel = require("./models/Language");
 const favoriteModel = require("./models/Favorite");
 
-const sequelize = new Sequelize(DB_DEPLOY, {
-  dialect: "postgres",
-  logging: false,
-  native: false,
-  dialectOptions: {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false, // Usar false si no tienes un certificado de CA válido
-    },
-  },
-});
+// const sequelize = new Sequelize(DB_DEPLOY, {
+//   dialect: "postgres",
+//   logging: false,
+//   native: false,
+//   dialectOptions: {
+//     ssl: {
+//       require: true,
+//       rejectUnauthorized: false, // Usar false si no tienes un certificado de CA válido
+//     },
+//   },
+// });
 
-// const sequelize = new Sequelize(
-//   `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/openbook`,
-//   {
-//     logging: false,
-//     native: false,
-//   }
-// );
+const sequelize = new Sequelize(
+  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/openbook`,
+  {
+    logging: false,
+    native: false,
+  }
+);
 
 userModel(sequelize);
 bookModel(sequelize);
