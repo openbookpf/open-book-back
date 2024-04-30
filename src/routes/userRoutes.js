@@ -23,11 +23,13 @@ userHandler.get("/:user_id", async (req, res) => {
 
 userHandler.post("/", async (req, res) => {
   try {
-    const { user_name, email_address, picture } = req.body;
+    const { user_name, email_address, picture, password, idAuth0 } = req.body;
     const newUser = await createUser({
       user_name,
       email_address,
+      idAuth0,
       picture,
+      password,
     });
     res.status(200).json(newUser);
   } catch (error) {
@@ -47,10 +49,10 @@ userHandler.get("/findbyname/:user_name", async (req, res) => {
 
 userHandler.put("/modify", async (req, res) => {
   const { user_id } = req.query;
-  const newobject = req.body;
+  const updatedData = req.body;
   try {
-    const changeobj = await modifyUser(user_id, newobject);
-    if (changeobj) {
+    const updatedUser = await modifyUser(user_id, updatedData);
+    if (updatedUser) {
       res.status(200).send({
         message: `the data for the user with user_id = ${user_id} has been modified`,
       });

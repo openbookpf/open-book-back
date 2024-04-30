@@ -7,13 +7,15 @@ const userRoutes = require("./userRoutes");
 const orderRoutes = require("./orderRoutes");
 const genreRoutes = require("./genreRoutes");
 const favoriteRoutes = require("./favoriteRoutes");
+const authorRoutes = require("./authorRoutes");
 
 //Configurar los routers
 //Ejemplo: router.use('/auth', authRouter);
-router.use("/book", bookRoutes);
-router.use("/user", userRoutes);
-router.use("/order", orderRoutes);
-router.use("/genre", genreRoutes);
-router.use("/favorite", favoriteRoutes);
+router.use("/books", bookRoutes);
+router.use("/users", userRoutes);
+router.use("/orders", orderRoutes);
+router.use("/genres", genreRoutes);
+router.use("/favorites", favoriteRoutes);
+router.use("/authors", authorRoutes);
 
 module.exports = router;
