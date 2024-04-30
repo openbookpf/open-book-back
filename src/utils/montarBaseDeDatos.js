@@ -28,22 +28,22 @@ module.exports = async () => {
     })
   );
 
-  const users = await getAllUsersFromAuthZero();
+  //const users = await getAllUsersFromAuthZero();
 
-  const createdUsers = await Promise.all(
-    users.map((user) => {
-      const { name, email, picture, user_id } = user;
-      const data = {
-        user_name: name,
-        email_address: email,
-        password: "",
-        picture: picture,
-        idAuth0: user_id,
+  //const createdUsers = await Promise.all(
+   // users.map((user) => {
+   //   const { name, email, picture, user_id } = user;
+    //  const data = {
+     //   user_name: name,
+    //    email_address: email,
+     //   password: "",
+    //    picture: picture,
+//        idAuth0: user_id,
       };
 
-      createUser(data);
-    })
-  );
+   //   createUser(data);
+  //  })
+//  );
 
   console.log("Datos de la API externa guardados en la base de datos.");
 };
