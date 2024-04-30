@@ -1,4 +1,5 @@
 const { fn, col } = require("sequelize");
+const changeBookFormat = require("./changeBookFormat");
 const {
   book,
   author,
@@ -45,20 +46,7 @@ const getAllBooksController = async () => {
   });
 
   //Formatting the data for the response
-  const formattedBooks = allBooks.map((book) => {
-    //Transfom sequilize data into js objects
-    const jsObjectBook = book.get({ plain: true });
-    //create array of genres containing just the genre's name
-    jsObjectBook.genres = book.genres.map((genre) => genre.name);
-    //Replace the object auther for the name
-    jsObjectBook.author = book.author.name;
-    //Replace the object editorial for the name
-    jsObjectBook.editorial = book.editorial.name;
-    //Replace the object language for the name
-    jsObjectBook.language = book.language.name;
-
-    return jsObjectBook;
-  });
+  const formattedBooks = allBooks.map((book) => changeBookFormat(book));
 
   return formattedBooks;
 };

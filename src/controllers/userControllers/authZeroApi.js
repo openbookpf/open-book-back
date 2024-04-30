@@ -2,8 +2,6 @@ require("dotenv").config();
 const request = require("request");
 const axios = require("axios");
 
-console.log(process.env.AUTH_ZERO_API_DOMAIN);
-
 //*GET THE TOKEN TO ACCESS THE API
 const getAccessToken = async () => {
   const options = {

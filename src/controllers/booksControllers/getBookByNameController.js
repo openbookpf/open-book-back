@@ -1,5 +1,13 @@
-const { Op } = require("sequelize");
-const { book, author, genre, language, editorial } = require("../../db");
+const { Op, fn, col } = require("sequelize");
+const {
+  book,
+  author,
+  genre,
+  language,
+  editorial,
+  review,
+} = require("../../db");
+const changeBookFormat = require("./changeBookFormat");
 
 const getBookByNameController = async (name) => {
   if (!name) {
@@ -12,14 +20,40 @@ const getBookByNameController = async (name) => {
         [Op.iLike]: `%${name}%`,
       },
     },
+    attributes: [
+      "ISBN",
+      [fn("AVG", col("reviews.rating")), "average_rating"],
+      "book_title",
+      "book_cover_url",
+      "book_description",
+      "price",
+      "quantity",
+      "book_status",
+      "available",
+      "year_of_edition",
+      "age_segment",
+    ],
     include: [
-      { model: author, attributes: ["name"], through: { attributes: [] } },
+      { model: author, attributes: ["name"] },
       { model: genre, attributes: ["name"], through: { attributes: [] } },
-      { model: editorial, attributes: ["name"], through: { attributes: [] } },
-      { model: language, attributes: ["name"], through: { attributes: [] } },
-    ]
+      { model: editorial, attributes: ["name"] },
+      { model: language, attributes: ["name"] },
+      {
+        model: review,
+        as: "reviews",
+        attributes: [],
+      },
+    ],
+    group: [
+      "book.ISBN",
+      "author.id",
+      "genres.id",
+      "editorial.id",
+      "language.id",
+    ],
   });
-  return foundBooks;
+  const formattedBooks = foundBooks.map((book) => changeBookFormat(book));
+  return formattedBooks;
 };
 
 module.exports = getBookByNameController;

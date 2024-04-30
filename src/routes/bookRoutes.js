@@ -30,7 +30,7 @@ bookRoutes.get("/", async (req, res) => {
 });
 
 //* GET BOOK BY ID
-bookRoutes.get("/id/:id", async (req, res) => {
+bookRoutes.get("/book-id/:id", async (req, res) => {
   const { id } = req.params;
   try {
     const foundBook = await getBookByIdController(id);
@@ -41,7 +41,7 @@ bookRoutes.get("/id/:id", async (req, res) => {
 });
 
 //* MODIFY BOOK DATA
-bookRoutes.put("/id/:id", async (req, res) => {
+bookRoutes.put("/book-id/:id", async (req, res) => {
   const { id } = req.params;
   const newData = req.body;
   try {
