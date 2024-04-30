@@ -11,7 +11,7 @@ const createUser = async ({
   let newUser = {};
 
   //Validate data provided on the body request
-  if (!email_address || !password) {
+  if (!email_address) {
     throw new Error("Data is missing: server can't create user");
   } else {
     if (idAuth0) {
@@ -28,11 +28,14 @@ const createUser = async ({
         email_address,
         picture,
         idAuth0,
+        user_type:
+          email_address === "openbooklibrary.dev@gmail.com"
+            ? "admin"
+            : "shopper",
       });
     } else {
       const auth0user = await createUserInAuthZero(email_address, password);
       if (auth0user) {
-        console.log(auth0user);
         newUser = await user.create({
           user_name: auth0user.name,
           email_address,

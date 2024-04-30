@@ -38,12 +38,14 @@ const getAllUsersFromAuthZero = async () => {
 
   const allUsers = await axios
     .request(config)
-    .then((response) => {
-      console.log(JSON.stringify(response.data));
+    .then(({ data }) => {
+      return data;
     })
     .catch((error) => {
       console.log(error);
     });
+
+  return allUsers;
 };
 
 //*CREATE AN USER ON AUTH0
@@ -196,4 +198,5 @@ const modifyUserInAuthZeroById = async (userId, updatedData) => {
 module.exports = {
   createUserInAuthZero,
   modifyUserInAuthZeroById,
+  getAllUsersFromAuthZero,
 };
