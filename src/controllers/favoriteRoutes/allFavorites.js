@@ -1,7 +1,7 @@
 const { favorite } = require("../../db");
 
-const allFavorites = () => {
-  const favoritos = favorite.findAll();
+const allFavorites = async () => {
+  const favoritos = await favorite.findAll();
   return favoritos;
 };
 

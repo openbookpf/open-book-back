@@ -128,8 +128,14 @@ bookRoutes.get("/", async (req, res) => {
 
 bookRoutes.get("/filtrar", async (req, res) => {
   try {
-    const { author, genre, min, max } = req.query;
-    const allbooks = await combiningFilter(author, genre, min, max);
+    // const { author, genre, min, max } = req.query;
+    const { authorArray, genreArray, minPrice, maxPrice } = req.body;
+    const allbooks = await combiningFilter({
+      authorArray,
+      genreArray,
+      minPrice,
+      maxPrice,
+    });
     res.status(200).json(allbooks);
   } catch (error) {
     res.status(500).json({ error: error.message });
