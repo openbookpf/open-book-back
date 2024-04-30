@@ -117,14 +117,14 @@ bookRoutes.get("/", async (req, res) => {
   }
 });
 
-bookRoutes.get("/filters", async (req, res) => {
-  try {
-    const getallfilters = await getAllOptionsForFilters();
-    res.status(200).json(getallfilters);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
+// bookRoutes.get("/filters", async (req, res) => {
+//   try {
+//     const getallfilters = await getAllOptionsForFilters();
+//     res.status(200).json(getallfilters);
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// });
 
 bookRoutes.get("/filtrar", async (req, res) => {
   try {
