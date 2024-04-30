@@ -26,7 +26,6 @@ const createUser = async ({
       newUser = await user.create({
         user_name,
         email_address,
-        idAuth0,
         picture,
         idAuth0,
       });
