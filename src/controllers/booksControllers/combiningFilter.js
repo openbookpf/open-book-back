@@ -113,7 +113,7 @@ const combiningFilter = async ({
   if (authorArray.length || genreArray.length) {
     const newbooks = formattedBooks.filter(
       (book) =>
-        authorArray.includes(book.author) ||
+        authorArray.includes(book.author) &&
         genreArray.some((genre) => book.genres.includes(genre))
     );
     return newbooks;
