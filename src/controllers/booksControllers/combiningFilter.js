@@ -111,11 +111,20 @@ const combiningFilter = async ({
 
   const formattedBooks = result.map((book) => changeBookFormat(book));
   if (authorArray.length || genreArray.length) {
-    const newbooks = formattedBooks.filter(
-      (book) =>
-        authorArray.includes(book.author) &&
-        genreArray.some((genre) => book.genres.includes(genre))
-    );
+    const newbooks = formattedBooks.filter((book) => {
+      if (genreArray.length && authorArray.length) {
+        return (
+          authorArray.includes(book.author) &&
+          genreArray.some((genre) => book.genres.includes(genre))
+        );
+      } else {
+        if (!genreArray.length) {
+          return authorArray.includes(book.author);
+        } else {
+          return genreArray.some((genre) => book.genres.includes(genre));
+        }
+      }
+    });
     return newbooks;
   } else {
     return formattedBooks;
