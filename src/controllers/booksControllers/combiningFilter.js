@@ -16,10 +16,7 @@ const combiningFilter = async ({
   maxPrice,
 }) => {
   var result;
-  console.log(authorArray);
-  console.log(genreArray);
-  console.log(minPrice);
-  console.log(maxPrice);
+
   if (minPrice || maxPrice) {
     result = await book.findAll({
       attributes: [
@@ -113,12 +110,16 @@ const combiningFilter = async ({
   }
 
   const formattedBooks = result.map((book) => changeBookFormat(book));
-  const newbooks = formattedBooks.filter(
-    (book) =>
-      authorArray.includes(book.author) ||
-      genreArray.some((genre) => book.genres.includes(genre))
-  );
-  return newbooks;
+  if (authorArray.length || genreArray.length) {
+    const newbooks = formattedBooks.filter(
+      (book) =>
+        authorArray.includes(book.author) ||
+        genreArray.some((genre) => book.genres.includes(genre))
+    );
+    return newbooks;
+  } else {
+    return formattedBooks;
+  }
 };
 
 module.exports = combiningFilter;
