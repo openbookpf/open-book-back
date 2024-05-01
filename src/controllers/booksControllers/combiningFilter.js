@@ -9,10 +9,15 @@ const {
 const { Op, fn, col } = require("sequelize");
 const changeBookFormat = require("./changeBookFormat");
 
-const combiningFilter = async (authorName, genreName, minPrice, maxPrice) => {
+const combiningFilter = async ({
+  authorArray,
+  genreArray,
+  minPrice,
+  maxPrice,
+}) => {
   var result;
-  console.log(authorName);
-  console.log(genreName);
+  console.log(authorArray);
+  console.log(genreArray);
   console.log(minPrice);
   console.log(maxPrice);
   if (minPrice || maxPrice) {
@@ -39,12 +44,10 @@ const combiningFilter = async (authorName, genreName, minPrice, maxPrice) => {
         {
           model: author,
           attributes: ["name"],
-          where: { name: { [Op.iLike]: `%${authorName}%` } },
         },
         {
           model: genre,
           attributes: ["name"],
-          where: { name: { [Op.iLike]: `%${genreName}%` } },
           through: { attributes: [] },
         },
         { model: editorial, attributes: ["name"] },
@@ -84,12 +87,10 @@ const combiningFilter = async (authorName, genreName, minPrice, maxPrice) => {
         {
           model: author,
           attributes: ["name"],
-          where: { name: { [Op.iLike]: `%${authorName}%` } },
         },
         {
           model: genre,
           attributes: ["name"],
-          where: { name: { [Op.iLike]: `%${genreName}%` } },
           through: { attributes: [] },
         },
         { model: editorial, attributes: ["name"] },
@@ -112,8 +113,12 @@ const combiningFilter = async (authorName, genreName, minPrice, maxPrice) => {
   }
 
   const formattedBooks = result.map((book) => changeBookFormat(book));
-
-  return formattedBooks;
+  const newbooks = formattedBooks.filter(
+    (book) =>
+      authorArray.includes(book.author) ||
+      genreArray.some((genre) => book.genres.includes(genre))
+  );
+  return newbooks;
 };
 
 module.exports = combiningFilter;

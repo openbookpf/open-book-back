@@ -1,9 +1,14 @@
 const { author } = require("../../db");
 
-const getAllAuthors = async (name, description) => {
-  // console.log(name);
+const getAllAuthors = async () => {
   const allAuthors = await author.findAll();
-  return allAuthors;
+  let formattedAuthors = [];
+
+  allAuthors.map((a) => {
+    formattedAuthors.push(a.get({ plain: true }).name);
+  });
+
+  return formattedAuthors;
 };
 
 module.exports = getAllAuthors;
