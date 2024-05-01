@@ -3,7 +3,7 @@ const authorRoutes = Router();
 const getAllAuthors = require("../controllers/authorControllers/getAllAuthors");
 const createAuthor = require("../controllers/authorControllers/createAuthor");
 
-//Get all generes
+//Get all authors
 authorRoutes.get("/", async (req, res) => {
   try {
     const allAuthors = await getAllAuthors();
@@ -14,6 +14,8 @@ authorRoutes.get("/", async (req, res) => {
     res.status(500).json({ error: "Failed to get authors." });
   }
 });
+
+//Create author
 
 authorRoutes.post("/", async (req, res) => {
   try {

@@ -32,8 +32,8 @@ const getAllBooksController = async () => {
       { model: language, attributes: ["name"] },
       {
         model: review,
-        as: "reviews",
-        attributes: [],
+
+        attributes: ["comment"],
       },
     ],
     group: [
@@ -42,6 +42,7 @@ const getAllBooksController = async () => {
       "genres.id",
       "editorial.id",
       "language.id",
+      "reviews.id",
     ],
   });
 
