@@ -15,6 +15,7 @@ const combiningFilter = async ({
   genreArray,
   minPrice,
   maxPrice,
+  Booklanguage,
 }) => {
   var result;
 
@@ -49,7 +50,15 @@ const combiningFilter = async ({
           through: { attributes: [] },
         },
         { model: editorial, attributes: ["name"] },
-        { model: language, attributes: ["name"] },
+        {
+          model: language,
+          attributes: ["name"],
+          where: {
+            name: {
+              [Op.iLike]: `%${Booklanguage ? Booklanguage : ""}%`,
+            },
+          },
+        },
         {
           model: review,
           attributes: ["rating", "comment", "date"],
@@ -97,7 +106,15 @@ const combiningFilter = async ({
           through: { attributes: [] },
         },
         { model: editorial, attributes: ["name"] },
-        { model: language, attributes: ["name"] },
+        {
+          model: language,
+          attributes: ["name"],
+          where: {
+            name: {
+              [Op.iLike]: `%${Booklanguage ? Booklanguage : ""}%`,
+            },
+          },
+        },
         {
           model: review,
           attributes: ["rating", "comment", "date"],

@@ -60,13 +60,14 @@ bookRoutes.put("/book-id/:id", async (req, res) => {
 
 bookRoutes.post("/filtrar", async (req, res) => {
   try {
-    const { authorArray, genreArray, minPrice, maxPrice } = req.body;
+    const { authorArray, genreArray, minPrice, maxPrice, language } = req.body;
 
     const allbooks = await combiningFilter({
       authorArray,
       genreArray,
       minPrice,
       maxPrice,
+      Booklanguage: language,
     });
     res.status(200).json(allbooks);
   } catch (error) {

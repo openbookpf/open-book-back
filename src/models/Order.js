@@ -22,12 +22,12 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       state: {
-        type: DataTypes.ENUM('created', 'in_progress', 'finalized'),
+        type: DataTypes.ENUM("created", "in_progress", "finalized"),
         defaultValue: "finalized",
       },
       shipping_adress: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
     },
     { timestamps: false }
