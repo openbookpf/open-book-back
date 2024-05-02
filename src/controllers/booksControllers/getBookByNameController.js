@@ -6,6 +6,7 @@ const {
   language,
   editorial,
   review,
+  user,
 } = require("../../db");
 const changeBookFormat = require("./changeBookFormat");
 
@@ -22,7 +23,7 @@ const getBookByNameController = async (name) => {
     },
     attributes: [
       "ISBN",
-      [fn("AVG", col("reviews.rating")), "average_rating"],
+      // [fn("AVG", col("reviews.rating")), "average_rating"],
       "book_title",
       "book_cover_url",
       "book_description",
@@ -40,8 +41,11 @@ const getBookByNameController = async (name) => {
       { model: language, attributes: ["name"] },
       {
         model: review,
-        as: "reviews",
-        attributes: [],
+        attributes: ["rating", "comment", "date"],
+        include: {
+          model: user,
+          attributes: ["user_name", "idAuth0"],
+        },
       },
     ],
     group: [
@@ -50,6 +54,8 @@ const getBookByNameController = async (name) => {
       "genres.id",
       "editorial.id",
       "language.id",
+      "reviews.id",
+      "reviews->user.user_id",
     ],
   });
   const formattedBooks = foundBooks.map((book) => changeBookFormat(book));

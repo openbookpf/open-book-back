@@ -1,6 +1,7 @@
-const { fn, col } = require("sequelize");
+const { fn, literal } = require("sequelize");
 const changeBookFormat = require("./changeBookFormat");
 const {
+  user,
   book,
   author,
   genre,
@@ -12,10 +13,12 @@ const {
 const getAllBooksController = async () => {
   //Query all the attributes needed for the response and adding the average calculated attribute
   let allBooks = await book.findAll({
+    subQuery: false,
+
     attributes: [
       "ISBN",
-      [fn("AVG", col("reviews.rating")), "average_rating"],
       "book_title",
+      // [literal("ROUND(AVG(reviews.rating), 2)"), "average_rating"],
       "book_cover_url",
       "book_description",
       "price",
@@ -32,8 +35,11 @@ const getAllBooksController = async () => {
       { model: language, attributes: ["name"] },
       {
         model: review,
-
-        attributes: ["comment"],
+        attributes: ["rating", "comment", "date"],
+        include: {
+          model: user,
+          attributes: ["user_name", "idAuth0"],
+        },
       },
     ],
     group: [
@@ -43,6 +49,7 @@ const getAllBooksController = async () => {
       "editorial.id",
       "language.id",
       "reviews.id",
+      "reviews->user.user_id",
     ],
   });
 

@@ -5,6 +5,7 @@ const {
   language,
   editorial,
   review,
+  user,
 } = require("../../db");
 const { Op, fn, col } = require("sequelize");
 const changeBookFormat = require("./changeBookFormat");
@@ -21,7 +22,7 @@ const combiningFilter = async ({
     result = await book.findAll({
       attributes: [
         "ISBN",
-        [fn("AVG", col("reviews.rating")), "average_rating"],
+        // [fn("AVG", col("reviews.rating")), "average_rating"],
         "book_title",
         "book_cover_url",
         "book_description",
@@ -51,8 +52,11 @@ const combiningFilter = async ({
         { model: language, attributes: ["name"] },
         {
           model: review,
-          as: "reviews",
-          attributes: [],
+          attributes: ["rating", "comment", "date"],
+          include: {
+            model: user,
+            attributes: ["user_name", "idAuth0"],
+          },
         },
       ],
 
@@ -62,13 +66,15 @@ const combiningFilter = async ({
         "genres.id",
         "editorial.id",
         "language.id",
+        "reviews.id",
+        "reviews->user.user_id",
       ],
     });
   } else {
     result = await book.findAll({
       attributes: [
         "ISBN",
-        [fn("AVG", col("reviews.rating")), "average_rating"],
+        // [fn("AVG", col("reviews.rating")), "average_rating"],
         "book_title",
         "book_cover_url",
         "book_description",
@@ -94,8 +100,11 @@ const combiningFilter = async ({
         { model: language, attributes: ["name"] },
         {
           model: review,
-          as: "reviews",
-          attributes: [],
+          attributes: ["rating", "comment", "date"],
+          include: {
+            model: user,
+            attributes: ["user_name", "idAuth0"],
+          },
         },
       ],
 
@@ -105,6 +114,8 @@ const combiningFilter = async ({
         "genres.id",
         "editorial.id",
         "language.id",
+        "reviews.id",
+        "reviews->user.user_id",
       ],
     });
   }
