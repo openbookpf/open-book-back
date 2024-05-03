@@ -13,7 +13,6 @@ module.exports = (sequelize) => {
       },
       id_payment: {
         type: DataTypes.STRING,
-        defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
       },
       date: {
@@ -21,7 +20,7 @@ module.exports = (sequelize) => {
         allowNull: false,
       },
       amount: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: false,
       },
     },

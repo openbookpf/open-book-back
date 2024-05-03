@@ -18,7 +18,7 @@ module.exports = (sequelize) => {
       },
 
       total_amount: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.FLOAT,
         allowNull: false,
       },
       state: {

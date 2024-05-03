@@ -1,5 +1,3 @@
-const datos = require("./datos");
-
 function getRandomDate() {
   // Generate a random year between 2023 and 2024
   const year = Math.floor(Math.random() * 2) + 2023;

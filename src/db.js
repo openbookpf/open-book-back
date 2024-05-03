@@ -125,6 +125,11 @@ book.belongsTo(editorial);
 language.hasMany(book);
 book.belongsTo(language);
 
+// One-to-many relationship (both ends) between Book and Order_item.
+book.hasMany(order_item);
+
+order_item.belongsTo(book);
+
 module.exports = {
   ...sequelize.models,
   conn: sequelize, // para importart la conexión { conn } = require('./db.js');

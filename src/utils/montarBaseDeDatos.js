@@ -6,6 +6,7 @@ const createAuthor = require("../controllers/authorControllers/createAuthor");
 const createGenre = require("../controllers/genreControllers/createGenre");
 const createMockCommentsForAllBooks = require("./dataReviews");
 const addReview = require("../controllers/reviewControllers/addReview");
+const createMockSalesData = require("./createDataForSales");
 const {
   getAllUsersFromAuthZero,
 } = require("../controllers/userControllers/authZeroApi");
@@ -56,6 +57,12 @@ module.exports = async () => {
           );
         })
       );
+    })
+  );
+
+  const allPayments = await Promise.all(
+    createdUsers.map((user) => {
+      return createMockSalesData(user.user_id);
     })
   );
 
