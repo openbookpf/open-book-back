@@ -3,6 +3,7 @@ const { user, favorite } = require("../../db");
 const getAllUsers = async () => {
   const allUsers = await user.findAll({
     attributes: [
+      "user_id",
       "idAuth0",
       "user_name",
       "lastname",
