@@ -7,15 +7,26 @@ const modifyUser = require("../controllers/userControllers/modifyUser");
 const findUserById = require("../controllers/userControllers/findUserById");
 const findUserByName = require("../controllers/userControllers/findUserByName.js");
 const modifyUserByName = require("../controllers/userControllers/modifyUserByName.js");
+const getUserBookCollection = require("../controllers/userControllers/getUserBooksCollection.js");
 // const deleteUser = require("../controllers/userControllers/deleteUser");
 // holaaaa
 
 //Create an user in the database
-userHandler.get("/:user_id", async (req, res) => {
-  const { user_id } = req.params;
+// userHandler.get("/id/:user_id", async (req, res) => {
+//   const { user_id } = req.params;
+//   try {
+//     const findUser = await findUserById(user_id);
+//     res.status(200).json(findUser);
+//   } catch (error) {
+//     res.status(500).json({ error: error.message });
+//   }
+// });
+
+userHandler.get("/book-collection", async (req, res) => {
+  const { idAuth0 } = req.query;
   try {
-    const findUser = await findUserById(user_id);
-    res.status(200).json(findUser);
+    const userBookCollection = await getUserBookCollection(idAuth0);
+    res.status(200).json(userBookCollection);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
