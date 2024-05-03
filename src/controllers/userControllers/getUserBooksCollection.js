@@ -22,14 +22,20 @@ const getUserBookCollection = async (idAuth0) => {
     ],
   });
 
-  const arrayOfISBN = searchedUser.orders.map((order) => {
+  let arrayOfISBN = searchedUser.orders.map((order) => {
     return order.order_items.map((item) => {
       return item.book.ISBN;
     });
   });
 
+  function removeDuplicates(arr) {
+    return arr.filter((item, index) => arr.indexOf(item) === index);
+  }
+
+  arrayOfISBN = removeDuplicates(arrayOfISBN[0]);
+
   const collection = await Promise.all(
-    arrayOfISBN[0].map(async (ISBN) => {
+    arrayOfISBN.map(async (ISBN) => {
       return await getBookByIdController(ISBN);
     })
   );
