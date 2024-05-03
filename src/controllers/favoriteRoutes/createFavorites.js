@@ -15,9 +15,9 @@ const createFavorites = async ({
     book_name,
     book_picture,
     description,
-    userUserId: user_id,
+    favorites_userUserId_fkey: user_id,
   });
   return newfavorite;
 };
-
+//userUserId
 module.exports = createFavorites;
