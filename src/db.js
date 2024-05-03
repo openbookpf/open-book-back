@@ -98,8 +98,8 @@ order.hasOne(payment);
 payment.belongsTo(order);
 
 // Relación de Cart a Book (muchos a muchos)
-cart.belongsToMany(book, { through: "cartBook" });
-book.belongsToMany(cart, { through: "cartBook" });
+cart.belongsToMany(book, { through: "cart_items" });
+book.belongsToMany(cart, { through: "cart_items" });
 
 // Relación de Discounts a Book (uno a uno)
 discounts.hasOne(book);

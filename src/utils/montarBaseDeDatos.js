@@ -53,7 +53,7 @@ module.exports = async () => {
       return Promise.all(
         datos.map((book) => {
           return addReview(
-            createMockCommentsForAllBooks(user.user_id, book.ISBN)
+            createMockCommentsForAllBooks(user.idAuth0, book.ISBN)
           );
         })
       );

@@ -9,6 +9,11 @@ module.exports = (sequelize) => {
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
       },
+
+      quantity: {
+        type: DataTypes.INTEGER,
+        defaultValue: 1,
+      },
       total: {
         type: DataTypes.FLOAT,
         allowNull: false,

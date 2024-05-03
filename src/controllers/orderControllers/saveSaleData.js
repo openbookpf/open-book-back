@@ -41,7 +41,7 @@ const saveSaleData = async (userId, cart, payment, totalValue) => {
     },
   });
   const total_amount = totalValue;
-  console.log(total_amount);
+
   const date = getTodaysDate();
   const order_id = await createOrder(date, total_amount, foundUser.user_id);
   const id_payment = payment.id;
