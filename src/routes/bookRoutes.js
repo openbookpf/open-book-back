@@ -46,10 +46,9 @@ bookRoutes.put("/book-id/:id", async (req, res) => {
   const newData = req.body;
   try {
     const settingbook = await modifyBook(id, newData);
+    const foundBookById = await getBookByIdController(settingbook.ISBN);
     if (settingbook) {
-      res.status(200).send({
-        message: `the data for the book with ISBN = ${id} has been modified`,
-      });
+      res.status(200).send(foundBookById);
     } else {
       res.send.status(404).send("Book not found");
     }
