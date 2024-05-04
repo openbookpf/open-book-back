@@ -7,7 +7,7 @@ const createFavorites = async ({
   description,
 }) => {
   if (!user_id || !book_name || !book_picture || !description) {
-    throw new Error("Data is missing: server can't create user");
+    throw new Error("Data is missing: server can't create favorite");
   }
 
   //create new user

@@ -69,7 +69,7 @@ const {
 user.hasMany(order);
 order.belongsTo(user);
 
-// Relacion de User a Favorite
+// Relacion de user
 user.hasMany(favorite);
 favorite.belongsTo(user);
 

@@ -7,6 +7,7 @@ const modifyUser = require("../controllers/userControllers/modifyUser");
 const findUserById = require("../controllers/userControllers/findUserById");
 const findUserByName = require("../controllers/userControllers/findUserByName.js");
 const modifyUserByName = require("../controllers/userControllers/modifyUserByName.js");
+const findUserByidAuth0 = require("../controllers/userControllers/findUserByidAuth0.js");
 // const deleteUser = require("../controllers/userControllers/deleteUser");
 // holaaaa
 
@@ -15,6 +16,16 @@ userHandler.get("/:user_id", async (req, res) => {
   const { user_id } = req.params;
   try {
     const findUser = await findUserById(user_id);
+    res.status(200).json(findUser);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+userHandler.get("/findbyidAuth0/:idAuth0", async (req, res) => {
+  const { idAuth0 } = req.params;
+  try {
+    const findUser = await findUserByidAuth0(idAuth0);
     res.status(200).json(findUser);
   } catch (error) {
     res.status(500).json({ error: error.message });

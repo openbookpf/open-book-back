@@ -10,13 +10,17 @@ favoriteRoutes.get("/", async (req, res) => {
 
 favoriteRoutes.post("/", async (req, res) => {
   const { user_id, book_name, book_picture, description } = req.body;
-  const newfav = await createFavorite({
-    user_id,
-    book_name,
-    book_picture,
-    description,
-  });
-  res.status(200).json(newfav);
+  try {
+    const newfav = await createFavorite({
+      user_id,
+      book_name,
+      book_picture,
+      description,
+    });
+    res.status(200).json(newfav);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
 module.exports = favoriteRoutes;

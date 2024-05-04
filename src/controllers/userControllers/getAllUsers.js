@@ -1,8 +1,9 @@
-const { user, favorite } = require("../../db");
+const { user, favorite, book } = require("../../db");
 
 const getAllUsers = async () => {
   const allUsers = await user.findAll({
     attributes: [
+      "user_id",
       "idAuth0",
       "user_name",
       "lastname",
@@ -21,7 +22,7 @@ const getAllUsers = async () => {
     ],
     include: {
       model: favorite,
-      attributes: ["book_name", "description"],
+      attributes: ["book_name", "description", "book_picture"],
     },
   });
   return allUsers;
