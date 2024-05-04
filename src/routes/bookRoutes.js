@@ -54,6 +54,7 @@ bookRoutes.put("/book-id/:id", async (req, res) => {
       res.send.status(404).send("Book not found");
     }
   } catch (error) {
+    console.log(error.message);
     res.status(500).json({ error: error.message });
   }
 });
