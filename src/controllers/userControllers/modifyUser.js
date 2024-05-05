@@ -12,7 +12,9 @@ const modifyUser = async (user_id, updatedInfo) => {
 
   if (foundUser) {
     await foundUser.update({ email_address: email, user_name: name });
-    modifiedUserFromAuthZero = modifyUserInAuthZeroById(user_id, updatedInfo);
+    modifiedUserFromAuthZero = modifyUserInAuthZeroById(user_id, {
+      user_name: name,
+    });
     return foundUser;
   }
   throw new Error("user not found");
