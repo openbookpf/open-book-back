@@ -28,6 +28,19 @@ module.exports = (sequelize) => {
           len: [1, 2000],
         },
       },
+      book_id: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      book_author: {
+        type: DataTypes.STRING,
+      },
+      book_quantity: {
+        type: DataTypes.INTEGER,
+      },
+      book_price: {
+        type: DataTypes.FLOAT,
+      },
     },
     { timestamps: false }
   );

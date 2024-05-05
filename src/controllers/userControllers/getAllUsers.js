@@ -22,7 +22,14 @@ const getAllUsers = async () => {
     ],
     include: {
       model: favorite,
-      attributes: ["book_name", "description", "book_picture"],
+      attributes: [
+        "book_name",
+        "description",
+        "book_picture",
+        "book_price",
+        "book_quantity",
+        "book_author",
+      ],
     },
   });
   return allUsers;
