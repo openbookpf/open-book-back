@@ -13,7 +13,7 @@ const modifyUser = async (user_id, updatedInfo) => {
   if (foundUser) {
     await foundUser.update({ email_address: email, user_name: name });
     modifiedUserFromAuthZero = modifyUserInAuthZeroById(user_id, {
-      user_name: name,
+      name: name,
     });
     return foundUser;
   }
