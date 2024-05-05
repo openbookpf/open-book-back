@@ -71,6 +71,7 @@ userHandler.put("/modify", async (req, res) => {
       res.send.status(404).send("user not found");
     }
   } catch (error) {
+    console.log(error.message);
     res.status(500).json({ error: error.message });
   }
 });
@@ -81,6 +82,7 @@ userHandler.get("/", async (req, res) => {
     const allUsers = await getAllUsers();
     res.status(200).json(allUsers);
   } catch (error) {
+    console.log(error.message);
     res.status(500).json({ error: error.message });
   }
 });
