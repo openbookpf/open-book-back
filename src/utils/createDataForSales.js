@@ -9,7 +9,11 @@ function getRandomDate() {
   const year = Math.floor(Math.random() * 2) + 2023;
 
   // Generate a random month between 1 and 12
-  const month = Math.floor(Math.random() * 12) + 1;
+  let maxMonth = 12;
+  if (year === 2024) {
+    maxMonth = 5; // If the year is 2024, limit the month to May
+  }
+  const month = Math.floor(Math.random() * maxMonth) + 1;
 
   // Generate a random day based on the month and year
   const daysInMonth = new Date(year, month, 0).getDate();
