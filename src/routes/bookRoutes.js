@@ -46,13 +46,30 @@ bookRoutes.put("/book-id/:id", async (req, res) => {
   const newData = req.body;
   try {
     const settingbook = await modifyBook(id, newData);
+    const foundBookById = await getBookByIdController(settingbook.ISBN);
     if (settingbook) {
-      res.status(200).send({
-        message: `the data for the book with ISBN = ${id} has been modified`,
-      });
+      res.status(200).send(foundBookById);
     } else {
       res.send.status(404).send("Book not found");
     }
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+bookRoutes.post("/filtrar", async (req, res) => {
+  try {
+    const { authorArray, genreArray, minPrice, maxPrice, language } = req.body;
+
+    const allbooks = await combiningFilter({
+      authorArray,
+      genreArray,
+      minPrice,
+      maxPrice,
+      Booklanguage: language,
+    });
+    res.status(200).json(allbooks);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -125,21 +142,5 @@ bookRoutes.get("/", async (req, res) => {
 //     res.status(500).json({ error: error.message });
 //   }
 // });
-
-bookRoutes.get("/filtrar", async (req, res) => {
-  try {
-    // const { author, genre, min, max } = req.query;
-    const { authorArray, genreArray, minPrice, maxPrice } = req.body;
-    const allbooks = await combiningFilter({
-      authorArray,
-      genreArray,
-      minPrice,
-      maxPrice,
-    });
-    res.status(200).json(allbooks);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
 
 module.exports = bookRoutes;

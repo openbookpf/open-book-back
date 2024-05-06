@@ -54,15 +54,15 @@ module.exports = (sequelize) => {
         },
         allowNull: true,
       },
-      adress_street: {
+      address_street: {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      adress_nro: {
+      address_number: {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      adress_cp: {
+      address_cp: {
         type: DataTypes.STRING,
         allowNull: true,
       },

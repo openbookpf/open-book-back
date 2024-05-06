@@ -4,6 +4,9 @@ const dataGenres = require("./dataGenres");
 const createBook = require("./../controllers/booksControllers/createBook");
 const createAuthor = require("../controllers/authorControllers/createAuthor");
 const createGenre = require("../controllers/genreControllers/createGenre");
+const createMockCommentsForAllBooks = require("./dataReviews");
+const addReview = require("../controllers/reviewControllers/addReview");
+const createMockSalesData = require("./createDataForSales");
 const {
   getAllUsersFromAuthZero,
 } = require("../controllers/userControllers/authZeroApi");
@@ -30,20 +33,38 @@ module.exports = async () => {
 
   const users = await getAllUsersFromAuthZero();
 
-const createdUsers = await Promise.all(
-   users.map((user) => {
-     const { name, email, picture, user_id } = user;
-     const data = {
-       user_name: name,
-      email_address: email,
-       password: "",
-      picture: picture,
-     idAuth0: user_id,
-    };
+  const createdUsers = await Promise.all(
+    users.map((user) => {
+      const { name, email, picture, user_id } = user;
+      const data = {
+        user_name: name,
+        email_address: email,
+        password: "",
+        picture: picture,
+        idAuth0: user_id,
+      };
 
-     createUser(data);
-  })
- );
+      return createUser(data);
+    })
+  );
+
+  const allReviews = await Promise.all(
+    createdUsers.map((user) => {
+      return Promise.all(
+        datos.map((book) => {
+          return addReview(
+            createMockCommentsForAllBooks(user.idAuth0, book.ISBN)
+          );
+        })
+      );
+    })
+  );
+
+  const allPayments = await Promise.all(
+    createdUsers.map((user) => {
+      return createMockSalesData(user.user_id);
+    })
+  );
 
   console.log("Datos de la API externa guardados en la base de datos.");
 };

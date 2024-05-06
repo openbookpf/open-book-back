@@ -15,26 +15,26 @@ const editorialModel = require("./models/Editorial");
 const languageModel = require("./models/Language");
 const favoriteModel = require("./models/Favorite");
 
+ const sequelize = new Sequelize(DB_DEPLOY, {   
+   dialect: "postgres",
+  logging: false,
+  native: false,
+   dialectOptions: {
+     ssl: {
+       require: true,
+       rejectUnauthorized: false, // Usar false si no tienes un certificado de CA válido
+     },
+    },
+  });
 
-// const sequelize = new Sequelize(DB_DEPLOY, {   
-//   dialect: "postgres",
-//  logging: false,
-//  native: false,
-//   dialectOptions: {
-//     ssl: {
-//       require: true,
-//       rejectUnauthorized: false, // Usar false si no tienes un certificado de CA válido
-//     },
-//    },
-//  });
+// const sequelize = new Sequelize(
+//  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/openbook`,
+//  {
+//    logging: false,
+//    native: false,
+//  }
+//);
 
-const sequelize = new Sequelize(
-  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/openbook`,
-  {
-    logging: false,
-    native: false,
-  }
-);
 
 userModel(sequelize);
 bookModel(sequelize);
@@ -99,8 +99,8 @@ order.hasOne(payment);
 payment.belongsTo(order);
 
 // Relación de Cart a Book (muchos a muchos)
-cart.belongsToMany(book, { through: "cartBook" });
-book.belongsToMany(cart, { through: "cartBook" });
+cart.belongsToMany(book, { through: "cart_items" });
+book.belongsToMany(cart, { through: "cart_items" });
 
 // Relación de Discounts a Book (uno a uno)
 discounts.hasOne(book);
@@ -125,6 +125,11 @@ book.belongsTo(editorial);
 // Relación de Language a Book (1 a muchos)
 language.hasMany(book);
 book.belongsTo(language);
+
+// One-to-many relationship (both ends) between Book and Order_item.
+book.hasMany(order_item);
+
+order_item.belongsTo(book);
 
 module.exports = {
   ...sequelize.models,

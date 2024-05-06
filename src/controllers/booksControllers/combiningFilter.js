@@ -5,6 +5,7 @@ const {
   language,
   editorial,
   review,
+  user,
 } = require("../../db");
 const { Op, fn, col } = require("sequelize");
 const changeBookFormat = require("./changeBookFormat");
@@ -14,17 +15,15 @@ const combiningFilter = async ({
   genreArray,
   minPrice,
   maxPrice,
+  Booklanguage,
 }) => {
   var result;
-  console.log(authorArray);
-  console.log(genreArray);
-  console.log(minPrice);
-  console.log(maxPrice);
+
   if (minPrice || maxPrice) {
     result = await book.findAll({
       attributes: [
         "ISBN",
-        [fn("AVG", col("reviews.rating")), "average_rating"],
+        // [fn("AVG", col("reviews.rating")), "average_rating"],
         "book_title",
         "book_cover_url",
         "book_description",
@@ -51,11 +50,22 @@ const combiningFilter = async ({
           through: { attributes: [] },
         },
         { model: editorial, attributes: ["name"] },
-        { model: language, attributes: ["name"] },
+        {
+          model: language,
+          attributes: ["name"],
+          where: {
+            name: {
+              [Op.iLike]: `%${Booklanguage ? Booklanguage : ""}%`,
+            },
+          },
+        },
         {
           model: review,
-          as: "reviews",
-          attributes: [],
+          attributes: ["rating", "comment", "date"],
+          include: {
+            model: user,
+            attributes: ["user_name", "idAuth0"],
+          },
         },
       ],
 
@@ -65,13 +75,15 @@ const combiningFilter = async ({
         "genres.id",
         "editorial.id",
         "language.id",
+        "reviews.id",
+        "reviews->user.user_id",
       ],
     });
   } else {
     result = await book.findAll({
       attributes: [
         "ISBN",
-        [fn("AVG", col("reviews.rating")), "average_rating"],
+        // [fn("AVG", col("reviews.rating")), "average_rating"],
         "book_title",
         "book_cover_url",
         "book_description",
@@ -94,11 +106,22 @@ const combiningFilter = async ({
           through: { attributes: [] },
         },
         { model: editorial, attributes: ["name"] },
-        { model: language, attributes: ["name"] },
+        {
+          model: language,
+          attributes: ["name"],
+          where: {
+            name: {
+              [Op.iLike]: `%${Booklanguage ? Booklanguage : ""}%`,
+            },
+          },
+        },
         {
           model: review,
-          as: "reviews",
-          attributes: [],
+          attributes: ["rating", "comment", "date"],
+          include: {
+            model: user,
+            attributes: ["user_name", "idAuth0"],
+          },
         },
       ],
 
@@ -108,17 +131,32 @@ const combiningFilter = async ({
         "genres.id",
         "editorial.id",
         "language.id",
+        "reviews.id",
+        "reviews->user.user_id",
       ],
     });
   }
 
   const formattedBooks = result.map((book) => changeBookFormat(book));
-  const newbooks = formattedBooks.filter(
-    (book) =>
-      authorArray.includes(book.author) ||
-      genreArray.some((genre) => book.genres.includes(genre))
-  );
-  return newbooks;
+  if (authorArray.length || genreArray.length) {
+    const newbooks = formattedBooks.filter((book) => {
+      if (genreArray.length && authorArray.length) {
+        return (
+          authorArray.includes(book.author) &&
+          genreArray.some((genre) => book.genres.includes(genre))
+        );
+      } else {
+        if (!genreArray.length) {
+          return authorArray.includes(book.author);
+        } else {
+          return genreArray.some((genre) => book.genres.includes(genre));
+        }
+      }
+    });
+    return newbooks;
+  } else {
+    return formattedBooks;
+  }
 };
 
 module.exports = combiningFilter;

@@ -1,6 +1,10 @@
 const { Router } = require("express");
 const orderRoutes = Router();
 const emailNotification = require("../controllers/orderControllers/emailNotification");
+const getAllPaymentsAndOrders = require("../controllers/orderControllers/getAllPayments");
+const {
+  saveSaleData,
+} = require("../controllers/orderControllers/saveSaleData");
 
 //controllers
 const {
@@ -27,19 +31,31 @@ orderRoutes.post("/", async (req, res) => {
   }
 });
 
+orderRoutes.get("/payments-and-orders", async (req, res) => {
+  try {
+    const allPayments = await getAllPaymentsAndOrders();
+
+    res.status(200).send(allPayments);
+  } catch (error) {
+    console.error("Failed to obtain payments' details:", error);
+    res.status(500).json({ error: "Failed to obtain payments' details." });
+  }
+});
+
 orderRoutes.post("/:orderID/capture", async (req, res) => {
   try {
     const { orderID } = req.params;
-    const { name, emailAddress, totalValue } = req.body;
-
-    console.log(name);
-    console.log(emailAddress);
-    console.log(totalValue);
-
+    const { name, emailAddress, totalValue, idAuthZero, cart } = req.body;
     const { jsonResponse, httpStatusCode } = await captureOrder(orderID);
-
     res.status(httpStatusCode).json(jsonResponse);
-    emailNotification(name, emailAddress, orderID, totalValue);
+
+    //Send email notification
+    emailNotification(name, emailAddress, orderID, totalValue.toFixed(2));
+
+    console.log(jsonResponse);
+
+    //Save purchase date into the database
+    saveSaleData(idAuthZero, cart, jsonResponse, totalValue);
   } catch (error) {
     console.error("Failed to create order:", error);
     res.status(500).json({ error: "Failed to capture order." });
