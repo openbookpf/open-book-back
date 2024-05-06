@@ -16,14 +16,23 @@ const createBook = async ({
 }) => {
   // Verificar si el autor existe o crear uno nuevo
   let newAuthor = await author.findOne({ where: { name: authorName } });
+  if(!newAuthor){
+    newAuthor = await author.create({name: authorName, description: ''})
+  };
 
   // Verificar si los géneros existen o crear nuevos
   const newGenres = await Promise.all(
     genresNames.map(async (genreName) => {
+      let addGenre
       const newGenre = await genre.findOne({
         where: { name: genreName },
       });
-      return newGenre.id;
+      if (newGenre){
+        return newGenre.id
+      }else{
+       addGenre = await genre.create({name: genreName})
+      }
+      return addGenre.id;
     })
   );
 
