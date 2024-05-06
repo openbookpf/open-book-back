@@ -145,7 +145,7 @@ const getAllPaymentsAndOrders = async () => {
     return valueB - valueA;
   });
 
-  const topSoldGenres = sortedSalesByGenre.slice(0, 4).map((item) => {
+  const topSoldGenres = sortedSalesByGenre.slice(0, 6).map((item) => {
     const genre = Object.keys(item)[0];
     const value = Object.values(item)[0];
     return {

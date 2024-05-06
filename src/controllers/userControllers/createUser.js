@@ -9,7 +9,8 @@ const createUser = async ({
   idAuth0,
 }) => {
   let newUser = {};
-
+  console.log(email_address);
+  console.log(password);
   //Validate data provided on the body request
   if (!email_address) {
     throw new Error("Data is missing: server can't create user");
@@ -18,6 +19,7 @@ const createUser = async ({
       const checkUser = await user.findOne({
         where: {
           idAuth0: idAuth0,
+          email_address: email_address,
         },
       });
       if (checkUser) {
