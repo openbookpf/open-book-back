@@ -40,8 +40,8 @@ favoriteRoutes.post("/", async (req, res) => {
 favoriteRoutes.get("/findtoremove/", async (req, res) => {
   const { user_id, fav_id } = req.query;
   try {
-    const favorite = await getfavorite(user_id, fav_id);
-    res.status(200).json(allfavorites);
+    const favorite = await getFavorite(user_id, fav_id);
+    res.status(200).json(favorite);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

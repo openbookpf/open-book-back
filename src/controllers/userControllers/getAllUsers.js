@@ -23,6 +23,7 @@ const getAllUsers = async () => {
     include: {
       model: favorite,
       attributes: [
+        "fav_id",
         "book_name",
         "description",
         "book_picture",
