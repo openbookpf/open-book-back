@@ -12,6 +12,7 @@ const getFavorite = async (user_id, fav_id) => {
       "book_author",
       "book_quantity",
       "book_price",
+      "userUserId",
     ],
   });
   const favorito = await findFav.find((fav) => fav.fav_id === Number(fav_id));

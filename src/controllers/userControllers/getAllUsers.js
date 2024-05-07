@@ -30,6 +30,7 @@ const getAllUsers = async () => {
         "book_price",
         "book_quantity",
         "book_author",
+        "userUserId",
       ],
     },
   });
