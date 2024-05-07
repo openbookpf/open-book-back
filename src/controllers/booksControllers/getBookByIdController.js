@@ -5,15 +5,15 @@ const {
   language,
   editorial,
   review,
+  user,
 } = require("../../db");
-const { fn, col } = require("sequelize");
+
 const changeBookFormat = require("./changeBookFormat");
 
 const getBookByIdController = async (id) => {
   const foundBook = await book.findByPk(id, {
     attributes: [
       "ISBN",
-      [fn("AVG", col("reviews.rating")), "average_rating"],
       "book_title",
       "book_cover_url",
       "book_description",
@@ -31,8 +31,11 @@ const getBookByIdController = async (id) => {
       { model: language, attributes: ["name"] },
       {
         model: review,
-        as: "reviews",
-        attributes: [],
+        attributes: ["rating", "comment", "date"],
+        include: {
+          model: user,
+          attributes: ["user_name", "idAuth0"],
+        },
       },
     ],
     group: [
@@ -41,6 +44,8 @@ const getBookByIdController = async (id) => {
       "genres.id",
       "editorial.id",
       "language.id",
+      "reviews.id",
+      "reviews->user.user_id",
     ],
   });
   if (foundBook) {

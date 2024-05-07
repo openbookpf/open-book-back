@@ -58,6 +58,23 @@ bookRoutes.put("/book-id/:id", async (req, res) => {
   }
 });
 
+bookRoutes.post("/filtrar", async (req, res) => {
+  try {
+    const { authorArray, genreArray, minPrice, maxPrice, language } = req.body;
+
+    const allbooks = await combiningFilter({
+      authorArray,
+      genreArray,
+      minPrice,
+      maxPrice,
+      Booklanguage: language,
+    });
+    res.status(200).json(allbooks);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 //* CREATE A BOOK
 bookRoutes.post(
   "/",
@@ -125,21 +142,5 @@ bookRoutes.get("/", async (req, res) => {
 //     res.status(500).json({ error: error.message });
 //   }
 // });
-
-bookRoutes.get("/filtrar", async (req, res) => {
-  try {
-    // const { author, genre, min, max } = req.query;
-    const { authorArray, genreArray, minPrice, maxPrice } = req.body;
-    const allbooks = await combiningFilter({
-      authorArray,
-      genreArray,
-      minPrice,
-      maxPrice,
-    });
-    res.status(200).json(allbooks);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
 
 module.exports = bookRoutes;
