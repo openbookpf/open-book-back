@@ -7,6 +7,7 @@ const createUser = async ({
   password,
   picture,
   idAuth0,
+  user_type,
 }) => {
   let newUser = {};
   console.log(email_address);
@@ -31,12 +32,17 @@ const createUser = async ({
         picture,
         idAuth0,
         user_type:
-          email_address === "openbooklibrary.dev@gmail.com"
+          email_address === "openbooklibrary.dev@gmail.com" ||
+          user_type === "admin"
             ? "admin"
             : "shopper",
       });
     } else {
-      const auth0user = await createUserInAuthZero(email_address, password);
+      const auth0user = await createUserInAuthZero(
+        email_address,
+        password,
+        user_type
+      );
       if (auth0user) {
         newUser = await user.create({
           user_name: auth0user.name,
@@ -44,6 +50,7 @@ const createUser = async ({
           idAuth0: auth0user.user_id,
           picture: auth0user.picture,
           password: password,
+          user_type: user_type,
         });
       }
     }

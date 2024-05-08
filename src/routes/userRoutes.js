@@ -34,13 +34,15 @@ userHandler.get("/book-collection", async (req, res) => {
 
 userHandler.post("/", async (req, res) => {
   try {
-    const { user_name, email_address, picture, password, idAuth0 } = req.body;
+    const { user_name, email_address, picture, password, idAuth0, user_type } =
+      req.body;
     const newUser = await createUser({
       user_name,
       email_address,
       idAuth0,
       picture,
       password,
+      user_type,
     });
     res.status(200).json(newUser);
   } catch (error) {

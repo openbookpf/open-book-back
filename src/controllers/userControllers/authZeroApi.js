@@ -49,7 +49,7 @@ const getAllUsersFromAuthZero = async () => {
 };
 
 //*CREATE AN USER ON AUTH0
-const createUserInAuthZero = async (email_address, password) => {
+const createUserInAuthZero = async (email_address, password, user_type) => {
   const accessToken = await getAccessToken();
 
   // const originalObject = {
@@ -73,6 +73,9 @@ const createUserInAuthZero = async (email_address, password) => {
     email: email_address,
     connection: "Username-Password-Authentication",
     password: password,
+    user_metadata: {
+      user_type: user_type ? user_type : "shopper",
+    },
   });
 
   let config = {
