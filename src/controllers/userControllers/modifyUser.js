@@ -19,18 +19,39 @@ const cleanUserDataForUpdate = (data) => {
 };
 
 const getFomattedUserDataForAuth0 = (data, idAuth0) => {
-  const bodyForRequestToTheAuth0Api = {
-    blocked: !data.is_active,
-    name: data.user_name,
-    picture: data.picture,
-    password: data.data,
-    connection:
-      idAuth0.split("|")[0] !== "google-oauth2"
-        ? "Username-Password-Authentication"
-        : "google-oauth2",
-  };
+  let bodyForRequestToTheAuth0Api;
+  const { is_active, phone_number, address_street } = data;
+  is_active === undefined
+    ? (bodyForRequestToTheAuth0Api = {
+        name: data.user_name,
+        picture: data.picture,
+        password: data.data,
+        connection:
+          idAuth0.split("|")[0] !== "google-oauth2"
+            ? "Username-Password-Authentication"
+            : "google-oauth2",
+        user_metadata:
+          phone_number || address_street
+            ? {
+                phone_number: phone_number,
+                address_street: address_street,
+              }
+            : null,
+      })
+    : (bodyForRequestToTheAuth0Api = {
+        blocked: !data.is_active,
+        name: data.user_name,
+        picture: data.picture,
+        password: data.data,
+        connection:
+          idAuth0.split("|")[0] !== "google-oauth2"
+            ? "Username-Password-Authentication"
+            : "google-oauth2",
+      });
 
   const finalObject = {};
+
+  //Check for undefined properties to extract them from the final body request
 
   Object.keys(bodyForRequestToTheAuth0Api).forEach((porperty) => {
     if (bodyForRequestToTheAuth0Api[porperty] && porperty !== "block") {

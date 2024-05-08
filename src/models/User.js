@@ -40,11 +40,11 @@ module.exports = (sequelize) => {
       },
       phone_number: {
         type: DataTypes.STRING,
-        validate: {
-          is: {
-            args: /^[0-9\-\+\s]+$/,
-          },
-        },
+        // validate: {
+        //   is: {
+        //     args: /^[0-9\-\+\s]+$/,
+        //   },
+        // },
         allowNull: true,
       },
       password: {

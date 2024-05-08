@@ -8,6 +8,7 @@ const findUserById = require("../controllers/userControllers/findUserById");
 const findUserByName = require("../controllers/userControllers/findUserByName.js");
 const modifyUserByName = require("../controllers/userControllers/modifyUserByName.js");
 const getUserBookCollection = require("../controllers/userControllers/getUserBooksCollection.js");
+const uploadProfilePicture = require("../middleware/uploadProfilePicture.js");
 // const deleteUser = require("../controllers/userControllers/deleteUser");
 // holaaaa
 
@@ -31,6 +32,21 @@ userHandler.get("/book-collection", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
+userHandler.post(
+  "/upload-profile-picture",
+  uploadProfilePicture,
+  async (req, res) => {
+    try {
+      console.log(req.file.path);
+      const imageUrl = req.file.path;
+      res.status(200).json({ imageUrl: imageUrl });
+    } catch (error) {
+      console.log(error.message);
+      res.status(500).json({ error: error.message });
+    }
+  }
+);
 
 userHandler.post("/", async (req, res) => {
   try {
