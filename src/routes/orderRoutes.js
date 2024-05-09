@@ -3,6 +3,7 @@ const orderRoutes = Router();
 const emailNotification = require("../controllers/orderControllers/emailNotification");
 const getAllPaymentsAndOrders = require("../controllers/orderControllers/getAllPayments");
 const getAllPaymentsAndOrdersByUserId = require("../controllers/orderControllers/getAllPaymentsByUserId");
+const getAllOrdersForAllUsers = require("../controllers/orderControllers/getAllOrdersForAllUsers");
 const {
   saveSaleData,
 } = require("../controllers/orderControllers/saveSaleData");
@@ -47,6 +48,17 @@ orderRoutes.get("/payments-and-orders", async (req, res) => {
   } catch (error) {
     console.error("Failed to obtain payments' details:", error);
     res.status(500).json({ error: "Failed to obtain payments' details." });
+  }
+});
+
+orderRoutes.get("/all-users-and-orders", async (req, res) => {
+  try {
+    const allUserOrders = await getAllOrdersForAllUsers();
+
+    res.status(200).send(allUserOrders);
+  } catch (error) {
+    console.error("Failed to obtain all orders", error);
+    res.status(500).json({ error: "Failed all orders and users" });
   }
 });
 
