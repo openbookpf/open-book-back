@@ -2,6 +2,7 @@ const { Router } = require("express");
 const orderRoutes = Router();
 const emailNotification = require("../controllers/orderControllers/emailNotification");
 const getAllPaymentsAndOrders = require("../controllers/orderControllers/getAllPayments");
+const getAllPaymentsAndOrdersByUserId = require("../controllers/orderControllers/getAllPaymentsByUserId");
 const {
   saveSaleData,
 } = require("../controllers/orderControllers/saveSaleData");
@@ -33,7 +34,14 @@ orderRoutes.post("/", async (req, res) => {
 
 orderRoutes.get("/payments-and-orders", async (req, res) => {
   try {
-    const allPayments = await getAllPaymentsAndOrders();
+    let allPayments;
+    const { idAuth0 } = req.query;
+
+    if (!idAuth0) {
+      allPayments = await getAllPaymentsAndOrders();
+    } else {
+      allPayments = await getAllPaymentsAndOrdersByUserId(idAuth0);
+    }
 
     res.status(200).send(allPayments);
   } catch (error) {
