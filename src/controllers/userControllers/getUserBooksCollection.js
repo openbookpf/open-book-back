@@ -20,6 +20,7 @@ const getUserBookCollection = async (idAuth0) => {
         },
       },
     ],
+    group: ["user_id"],
   });
 
   let arrayOfISBN = searchedUser.orders.map((order) => {
