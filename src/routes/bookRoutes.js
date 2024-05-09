@@ -79,7 +79,7 @@ bookRoutes.post("/filtrar", async (req, res) => {
 bookRoutes.post(
   "/",
   uploadImage,
-  createBookValidation(createBookSchema),
+  // createBookValidation(createBookSchema),
   async (req, res) => {
     try {
       const {
@@ -102,7 +102,7 @@ bookRoutes.post(
         ISBN,
         book_title,
         author,
-        genresNames: genre,
+        genre,
         book_description,
         price,
         book_cover_url,

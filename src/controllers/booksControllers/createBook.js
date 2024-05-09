@@ -5,7 +5,7 @@ const createBook = async ({
   ISBN,
   book_title,
   author: authorName,
-  genresNames,
+  genre: genresNames,
   book_description,
   price,
   book_cover_url,
@@ -14,26 +14,38 @@ const createBook = async ({
   language: languageName,
   age_segment,
 }) => {
+  console.log(genresNames);
+  let arrayOfGenres;
   // Verificar si el autor existe o crear uno nuevo
   let newAuthor = await author.findOne({ where: { name: authorName } });
   if (!newAuthor) {
-    newAuthor = await author.create({ name: authorName, description: "" });
+    newAuthor = await author.create({
+      name: authorName,
+      description: "THIS IS A TEST",
+    });
+  }
+
+  if (typeof genresNames === "string") {
+    arrayOfGenres = genresNames.split(",");
+  } else {
+    arrayOfGenres = genresNames;
   }
 
   // Verificar si los géneros existen o crear nuevos
   const newGenres = await Promise.all(
-    genresNames.map(async (genreName) => {
-      let addGenre;
-      const newGenre = await genre.findOne({
-        where: { name: genreName },
-      });
-      if (newGenre) {
-        return newGenre.id;
-      } else {
-        addGenre = await genre.create({ name: genreName });
-      }
-      return addGenre.id;
-    })
+    arrayOfGenres?.length &&
+      arrayOfGenres.map(async (genreName) => {
+        let addGenre;
+        const newGenre = await genre.findOne({
+          where: { name: genreName },
+        });
+        if (newGenre) {
+          return newGenre.id;
+        } else {
+          addGenre = await genre.create({ name: genreName });
+        }
+        return addGenre.id;
+      })
   );
 
   // Verificar si la editorial existe o crear una nueva
@@ -54,7 +66,7 @@ const createBook = async ({
     price,
     book_cover_url,
     year_of_edition,
-    age_segment,
+    age_segment: age_segment ? age_segment : "Adulto",
     // Establecer las relaciones usando las claves externas
     authorId: newAuthor.id,
     editorialId: newEditorial.id,
