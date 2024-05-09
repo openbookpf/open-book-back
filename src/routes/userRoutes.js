@@ -9,6 +9,7 @@ const findUserByName = require("../controllers/userControllers/findUserByName.js
 const modifyUserByName = require("../controllers/userControllers/modifyUserByName.js");
 const getUserBookCollection = require("../controllers/userControllers/getUserBooksCollection.js");
 const uploadProfilePicture = require("../middleware/uploadProfilePicture.js");
+const getUserBooksCollectionSecondVersion = require("../controllers/userControllers/getUserBooksCollectionSecondVersion.js");
 // const deleteUser = require("../controllers/userControllers/deleteUser");
 // holaaaa
 

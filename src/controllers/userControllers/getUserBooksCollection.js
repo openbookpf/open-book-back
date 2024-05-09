@@ -33,10 +33,18 @@ const getUserBookCollection = async (idAuth0) => {
     return arr.filter((item, index) => arr.indexOf(item) === index);
   }
 
-  arrayOfISBN = removeDuplicates(arrayOfISBN[0]);
+  let allISBNFromOrders = [];
+
+  arrayOfISBN.forEach((orderISBNArray) => {
+    allISBNFromOrders = [
+      ...allISBNFromOrders,
+      ...removeDuplicates(orderISBNArray),
+    ];
+  });
+  console.log(arrayOfISBN);
 
   const collection = await Promise.all(
-    arrayOfISBN.map(async (ISBN) => {
+    allISBNFromOrders.map(async (ISBN) => {
       return await getBookByIdController(ISBN);
     })
   );
