@@ -66,7 +66,7 @@ const createBook = async ({
     price,
     book_cover_url,
     year_of_edition,
-    age_segment: age_segment ? age_segment : "Adulto",
+    age_segment: age_segment ? age_segment : "Juvenil",
     // Establecer las relaciones usando las claves externas
     authorId: newAuthor.id,
     editorialId: newEditorial.id,
