@@ -85,7 +85,7 @@ module.exports = (sequelize) => {
         },
       },
       age_segment: {
-        type: DataTypes.ENUM("Infantil", "Juvenil", "Adulto"),
+        type: DataTypes.STRING,
       },
     },
     { timestamps: false }
