@@ -102,7 +102,7 @@ bookRoutes.post(
         ISBN,
         book_title,
         author,
-        genre,
+        genresNames: genre,
         book_description,
         price,
         book_cover_url,
