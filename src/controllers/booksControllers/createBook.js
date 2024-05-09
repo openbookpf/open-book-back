@@ -5,7 +5,7 @@ const createBook = async ({
   ISBN,
   book_title,
   author: authorName,
-  genre: genresNames,
+  genres: genresNames,
   book_description,
   price,
   book_cover_url,
