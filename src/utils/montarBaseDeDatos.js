@@ -49,21 +49,25 @@ module.exports = async () => {
   );
 
   const allReviews = await Promise.all(
-    createdUsers.map((user) => {
-      return Promise.all(
-        datos.map((book) => {
-          return addReview(
-            createMockCommentsForAllBooks(user.idAuth0, book.ISBN)
-          );
-        })
-      );
-    })
+    createdUsers
+      .filter((user) => user.email_address !== "openbooklibrary.dev@gmail.com")
+      .map((user) => {
+        return Promise.all(
+          datos.map((book) => {
+            return addReview(
+              createMockCommentsForAllBooks(user.idAuth0, book.ISBN)
+            );
+          })
+        );
+      })
   );
 
   const allPayments = await Promise.all(
-    createdUsers.map((user) => {
-      return createMockSalesData(user.user_id);
-    })
+    createdUsers
+      .filter((user) => user.email_address !== "openbooklibrary.dev@gmail.com")
+      .map((user) => {
+        return createMockSalesData(user.user_id);
+      })
   );
 
   console.log("Datos de la API externa guardados en la base de datos.");
