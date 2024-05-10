@@ -79,7 +79,7 @@ bookRoutes.post("/filtrar", async (req, res) => {
 bookRoutes.post(
   "/",
   uploadImage,
-  createBookValidation(createBookSchema),
+  // createBookValidation(createBookSchema),
   async (req, res) => {
     try {
       const {
