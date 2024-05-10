@@ -43,6 +43,8 @@ const getUserBookCollection = async (idAuth0) => {
   });
   console.log(arrayOfISBN);
 
+  allISBNFromOrders = removeDuplicates(allISBNFromOrders);
+
   const collection = await Promise.all(
     allISBNFromOrders.map(async (ISBN) => {
       return await getBookByIdController(ISBN);
